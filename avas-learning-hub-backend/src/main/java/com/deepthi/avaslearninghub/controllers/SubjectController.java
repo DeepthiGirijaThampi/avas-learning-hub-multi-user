@@ -50,7 +50,7 @@ public class SubjectController {
                     return ResponseEntity.ok(saved);
                 })
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("Subject not found with id: " + id));
+                        .body("Subject not found  " ));
     }
     // Delete a subject
     @DeleteMapping("/{id}")

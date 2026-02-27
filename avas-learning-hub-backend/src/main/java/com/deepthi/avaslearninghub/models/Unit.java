@@ -15,11 +15,13 @@ public class Unit {
     private Long subjectId;
     @Column(nullable = false, length = 120)
     private String title;
+    @Lob
+    private String description;
     @Column(name = "is_completed", nullable = false)
     private boolean isCompleted = false;
     @Column(name= "completed_at")
     private LocalDateTime completedAt;
-    @Column
+    @Column(nullable = true)
     private Integer sortOrder;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -28,10 +30,11 @@ public class Unit {
     public Unit() {
     }
 
-    public Unit(Long subjectId, String title, Integer sortOrder) {
+    public Unit(Long subjectId, String title, String description, Integer sortOrder) {
         this.subjectId = subjectId;
         this.title = title;
         this.sortOrder = sortOrder;
+        this.description = description;
     }
 
     public Long getId() {
@@ -82,4 +85,11 @@ public class Unit {
         return createdAt;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
