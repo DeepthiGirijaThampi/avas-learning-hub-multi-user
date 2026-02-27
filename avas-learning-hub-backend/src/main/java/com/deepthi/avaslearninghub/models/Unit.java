@@ -1,6 +1,7 @@
 package com.deepthi.avaslearninghub.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -12,27 +13,25 @@ public class Unit {
     private Long id;
     @Column(name = "subject_id", nullable = false)
     private Long subjectId;
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 120)
     private String title;
-    @Column
+    @Column(name = "is_completed", nullable = false)
     private boolean isCompleted = false;
-    @Column
+    @Column(name= "completed_at")
     private LocalDateTime completedAt;
     @Column
     private Integer sortOrder;
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public Unit() {
     }
 
-    public Unit(Long subjectId, String title, boolean isCompleted, LocalDateTime completedAt, Integer sortOrder, LocalDateTime createdAt) {
+    public Unit(Long subjectId, String title, Integer sortOrder) {
         this.subjectId = subjectId;
         this.title = title;
-        this.isCompleted = isCompleted;
-        this.completedAt = completedAt;
         this.sortOrder = sortOrder;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
