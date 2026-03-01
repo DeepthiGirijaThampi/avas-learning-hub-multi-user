@@ -16,7 +16,7 @@ public class Subject {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
-     @OneToMany(mappedBy = "subject")
+     @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL,orphanRemoval = true)
      @JsonBackReference
      private List<Unit> units = new ArrayList<>();
 
