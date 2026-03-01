@@ -1,9 +1,12 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "subjects")
@@ -12,6 +15,11 @@ public class Subject {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
+
+     @OneToMany(mappedBy = "subject")
+     @JsonBackReference
+     private List<Unit> units = new ArrayList<>();
+
      @Column(name = "user_id", nullable = false)
      private Long userId;
      @Column(nullable = false,length = 80)
@@ -41,6 +49,14 @@ public class Subject {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Unit> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<Unit> units) {
+        this.units = units;
     }
 
     public Long getUserId() {
