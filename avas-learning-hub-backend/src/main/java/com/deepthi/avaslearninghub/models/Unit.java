@@ -15,7 +15,7 @@ public class Unit {
 //    @Column(name = "subject_id", nullable = false)
 //    private Long subjectId;
     @JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
     @Column(nullable = false, length = 120)
@@ -97,4 +97,6 @@ public class Unit {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }

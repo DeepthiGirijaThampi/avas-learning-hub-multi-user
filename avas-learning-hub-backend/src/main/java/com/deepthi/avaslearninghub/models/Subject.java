@@ -103,4 +103,14 @@ public class Subject {
         return createdAt;
     }
 
+    //helper methods to add and remove units from subject
+    public void addUnit(Unit unit){
+        units.add(unit);
+        unit.setSubject(this);
+    }
+
+    public void removeUnit(Unit unit){
+        units.remove(unit);
+        unit.setSubject(null);
+    }
 }
