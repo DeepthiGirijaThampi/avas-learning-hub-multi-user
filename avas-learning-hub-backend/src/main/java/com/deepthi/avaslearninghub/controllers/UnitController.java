@@ -37,6 +37,12 @@ public class UnitController {
                 .<ResponseEntity<?>>map(unit -> ResponseEntity.ok(unit))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found with id: " + id));
     }
+
+    //Get units by subject id
+    @GetMapping("/by-subject/{subjectId}")
+    public ResponseEntity<?> getUnitsBySubject(@PathVariable Long subjectId) {
+        return ResponseEntity.ok(unitRepository.findBySubjectId(subjectId));
+    }
     //Create a new unit
     @PostMapping
     public ResponseEntity<?> createUnit(@RequestBody Unit unit){

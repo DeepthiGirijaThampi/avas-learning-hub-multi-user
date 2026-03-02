@@ -32,7 +32,7 @@ public class SubjectController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Subject not found "));
     }
     // Create a new subject
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Subject> createSubject(@RequestBody Subject subject) {
         Subject saved = subjectRepository.save(subject);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
