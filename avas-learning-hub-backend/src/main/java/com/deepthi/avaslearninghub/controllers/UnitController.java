@@ -41,7 +41,7 @@ public class UnitController {
     //Get units by subject id
     @GetMapping("/by-subject/{subjectId}")
     public ResponseEntity<?> getUnitsBySubject(@PathVariable Long subjectId) {
-        return ResponseEntity.ok(unitRepository.findBySubjectId(subjectId));
+        return ResponseEntity.ok(unitRepository.findBySubject_Id(subjectId));
     }
     //Create a new unit
     @PostMapping

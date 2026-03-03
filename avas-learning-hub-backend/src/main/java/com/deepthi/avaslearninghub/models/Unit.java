@@ -1,5 +1,6 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,7 +15,8 @@ public class Unit {
     private Long id;
 //    @Column(name = "subject_id", nullable = false)
 //    private Long subjectId;
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
