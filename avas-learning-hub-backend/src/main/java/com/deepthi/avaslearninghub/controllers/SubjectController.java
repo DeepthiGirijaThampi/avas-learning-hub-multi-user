@@ -35,6 +35,13 @@ public class SubjectController {
                 .<ResponseEntity<?>>map(subject -> ResponseEntity.ok().body(subject))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Subject not found "));
     }
+
+    //Get subjects by user id
+    @GetMapping("/by-user/{userId}")
+    public ResponseEntity<?> getSubjectsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(subjectRepository.findByUser_Id(userId));
+    }
+
     // Create a new subject
     @PostMapping
     public ResponseEntity<?> createSubject(@RequestBody Subject subject) {
