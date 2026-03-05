@@ -22,8 +22,12 @@ public class Subject {
      @JsonManagedReference
      private List<Unit> units = new ArrayList<>();
 
-     @Column(name = "user_id", nullable = false)
-     private Long userId;
+//     @Column(name = "user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+     private User user;
+
      @Column(nullable = false,length = 80)
      private String name;
      @Lob
@@ -41,8 +45,8 @@ public class Subject {
 
     }
 
-    public Subject(Long userId, String name, String description, String color, String icon) {
-        this.userId = userId;
+    public Subject(User user, String name, String description, String color, String icon) {
+        this.user = user;
         this.name = name;
         this.description = description;
         this.color = color;
@@ -61,12 +65,12 @@ public class Subject {
         this.units = units;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

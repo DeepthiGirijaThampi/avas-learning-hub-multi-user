@@ -1,7 +1,9 @@
 package com.deepthi.avaslearninghub.controllers;
 
 import com.deepthi.avaslearninghub.models.Subject;
+import com.deepthi.avaslearninghub.models.User;
 import com.deepthi.avaslearninghub.repositories.SubjectRepository;
+import com.deepthi.avaslearninghub.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ public class SubjectController {
 
     @Autowired
     private SubjectRepository subjectRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     // CRUD operations for subjects
     //Retrieve all subjects
@@ -33,7 +37,26 @@ public class SubjectController {
     }
     // Create a new subject
     @PostMapping
-    public ResponseEntity<Subject> createSubject(@RequestBody Subject subject) {
+    public ResponseEntity<?> createSubject(@RequestBody Subject subject) {
+
+//        Subject saved = subjectRepository.save(subject);
+//        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+
+        // check if user exists
+        if(subject.getUser()==null || subject.getUser().getId() == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found ");
+        }
+        //fetch real user from db
+        Long userId = subject.getUser().getId();
+        User user = userRepository.findById(userId).orElse(null);
+        if(user == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found");
+        }
+        //attach it to Subject
+        subject.setUser(user);
+        // save
         Subject saved = subjectRepository.save(subject);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
