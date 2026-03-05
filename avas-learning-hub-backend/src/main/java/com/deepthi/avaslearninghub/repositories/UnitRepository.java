@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface UnitRepository extends JpaRepository<Unit,Long> {
+    //select * from units where subject_id = ?
     List<Unit> findBySubject_Id(Long subjectId);
 }
