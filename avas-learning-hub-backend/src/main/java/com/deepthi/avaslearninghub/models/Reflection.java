@@ -1,5 +1,6 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -13,11 +14,21 @@ public class Reflection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //  user_id bigint [not null]
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+//    @Column(name = "user_id", nullable = false)
+//    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user;
+
 //  subject_id bigint
-    @Column(name = "subject_id")
-    private Long subjectId;
+//    @Column(name = "subject_id")
+//    private Long subjectId;
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    @JsonBackReference
+    private Subject subject;
+
 //  content text [not null]
     @Lob
     @Column(nullable = false)
@@ -30,34 +41,30 @@ public class Reflection {
     public Reflection() {
     }
 
-    public Reflection(Long userId, Long subjectId, String content) {
-        this.userId = userId;
-        this.subjectId = subjectId;
+    public Reflection(User user, Subject subject, String content) {
+        this.user = user;
+        this.subject = subject;
         this.content = content;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
     }
 
     public String getContent() {
