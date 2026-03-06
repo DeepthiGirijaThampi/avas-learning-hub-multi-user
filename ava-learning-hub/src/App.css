@@ -1,0 +1,15 @@
+:root{
+    --white-color: #fdf5f5;
+    --shading-color :rgba(0, 0, 0, 0.849);
+}
+
+body{
+    position: relative;
+    background-image: linear-gradient(rgba(123, 160, 91, 0.2), rgba(255, 255, 255, 0.2)), url("./assets/background-app-three.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+   

@@ -1,0 +1,40 @@
+.feature-card {
+  background-color: #f3f4f6; 
+  /* background-color: rgba(210, 223, 210, 0.517); */
+  border: 2px solid #d1d5db;
+  border-left: 8px solid #7ba05b76; 
+  border-right:8px solid #7ba05b58;  
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #7BA05B; 
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.743);
+  transition: transform 0.2s ease;
+}
+  
+.feature-card:hover {
+  transform: scale(1.02);
+  background-color: #e0f2fe; 
+  cursor: pointer;
+}
+
+.get-started-button{
+  background-color: #7BA05B;
+  border: 2px solid #ccd5ae;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #f3f4f6;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.754);
+  transition: transform 0.2s ease;
+}
+   
+.get-started-button:hover {
+  transform: scale(1.02);
+  background-color: rgb(39, 124, 34);
+  cursor: pointer;
+}
