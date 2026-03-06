@@ -1,9 +1,13 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -12,6 +16,11 @@ public class User {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//     @JsonManagedReference
+     @JsonIgnore
+     private List<Subject> subjects = new ArrayList<>();
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
@@ -22,6 +31,7 @@ public class User {
     @Column(nullable = false,unique = true, length = 100)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
@@ -93,4 +103,10 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+
 }

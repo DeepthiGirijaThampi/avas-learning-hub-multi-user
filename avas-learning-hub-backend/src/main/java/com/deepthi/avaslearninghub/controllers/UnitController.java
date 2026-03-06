@@ -1,6 +1,8 @@
 package com.deepthi.avaslearninghub.controllers;
 
+import com.deepthi.avaslearninghub.models.Subject;
 import com.deepthi.avaslearninghub.models.Unit;
+import com.deepthi.avaslearninghub.repositories.SubjectRepository;
 import com.deepthi.avaslearninghub.repositories.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,10 @@ public class UnitController {
     @Autowired
     private UnitRepository unitRepository;
 
+    @Autowired
+    private SubjectRepository subjectRepository;
+
+
     //CRUD operations for Units
     //Retrieve all units
     @GetMapping
@@ -31,11 +37,35 @@ public class UnitController {
                 .<ResponseEntity<?>>map(unit -> ResponseEntity.ok(unit))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found with id: " + id));
     }
+
+    //Get units by subject id
+    @GetMapping("/by-subject/{subjectId}")
+    public ResponseEntity<?> getUnitsBySubject(@PathVariable Long subjectId) {
+        return ResponseEntity.ok(unitRepository.findBySubject_Id(subjectId));
+    }
     //Create a new unit
     @PostMapping
     public ResponseEntity<?> createUnit(@RequestBody Unit unit){
+//        Unit saved = unitRepository.save(unit);
+//        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        // 1)validate subject exists
+        if(unit.getSubject() == null || unit.getSubject().getId() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Subject id is required.");
+        }
+
+        Long subjectId = unit.getSubject().getId();
+        // 2)Fetch real subject from db
+        Subject subject = subjectRepository.findById(subjectId).orElse(null);
+         if(subject == null){
+             return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                     .body("Subject not found with id : "+ subjectId);
+         }
+        //3)Attach real subject entity to unit
+        unit.setSubject((subject));
+        //4)Save unit
         Unit saved = unitRepository.save(unit);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        return new ResponseEntity<>(saved,HttpStatus.CREATED);
     }
     //Update an existing unit
     @PutMapping("/{id}")
