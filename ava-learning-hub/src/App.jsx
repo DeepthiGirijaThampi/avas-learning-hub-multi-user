@@ -9,6 +9,7 @@ import Subjects from "./components/pages/Subjects";
 import Units from "./components/pages/Units";
 import Contacts from "./components/pages/Contacts";
 import './App.css'
+import Login from "./components/pages/Login";
 function App() {
   
   return (
@@ -16,6 +17,7 @@ function App() {
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/> 
         <Route path="/about" element={<About/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/reflections" element={<Reflections/>}/>
