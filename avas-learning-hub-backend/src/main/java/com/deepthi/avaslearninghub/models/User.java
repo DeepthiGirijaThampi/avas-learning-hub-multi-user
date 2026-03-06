@@ -18,7 +18,8 @@ public class User {
     private Long id;
 
      @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-     @JsonManagedReference
+//     @JsonManagedReference
+     @JsonIgnore
      private List<Subject> subjects = new ArrayList<>();
 
     @Column(nullable = false, unique = true, length = 50)

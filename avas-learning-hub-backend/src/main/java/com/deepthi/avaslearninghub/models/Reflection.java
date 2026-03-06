@@ -18,7 +18,7 @@ public class Reflection {
 //    private Long userId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+//    @JsonBackReference
     private User user;
 
 //  subject_id bigint
@@ -26,7 +26,7 @@ public class Reflection {
 //    private Long subjectId;
     @ManyToOne
     @JoinColumn(name = "subject_id")
-    @JsonBackReference
+//    @JsonBackReference
     private Subject subject;
 
 //  content text [not null]

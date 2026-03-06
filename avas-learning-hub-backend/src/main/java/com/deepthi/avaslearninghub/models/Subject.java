@@ -1,6 +1,7 @@
 package com.deepthi.avaslearninghub.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +20,8 @@ public class Subject {
 
      @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL,orphanRemoval = true)
 //     @JsonBackReference
-     @JsonManagedReference
+//     @JsonManagedReference
+     @JsonIgnore
      private List<Unit> units = new ArrayList<>();
 
 //     @Column(name = "user_id", nullable = false)
