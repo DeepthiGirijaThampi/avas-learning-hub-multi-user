@@ -1,9 +1,14 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "subjects")
@@ -12,8 +17,19 @@ public class Subject {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
-     @Column(name = "user_id", nullable = false)
-     private Long userId;
+
+     @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL,orphanRemoval = true)
+//     @JsonBackReference
+//     @JsonManagedReference
+     @JsonIgnore
+     private List<Unit> units = new ArrayList<>();
+
+//     @Column(name = "user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+     private User user;
+
      @Column(nullable = false,length = 80)
      private String name;
      @Lob
@@ -31,8 +47,8 @@ public class Subject {
 
     }
 
-    public Subject(Long userId, String name, String description, String color, String icon) {
-        this.userId = userId;
+    public Subject(User user, String name, String description, String color, String icon) {
+        this.user = user;
         this.name = name;
         this.description = description;
         this.color = color;
@@ -43,12 +59,20 @@ public class Subject {
         return id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public List<Unit> getUnits() {
+        return units;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUnits(List<Unit> units) {
+        this.units = units;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -87,4 +111,14 @@ public class Subject {
         return createdAt;
     }
 
+    //helper methods to add and remove units from subject
+    public void addUnit(Unit unit){
+        units.add(unit);
+        unit.setSubject(this);
+    }
+
+    public void removeUnit(Unit unit){
+        units.remove(unit);
+        unit.setSubject(null);
+    }
 }

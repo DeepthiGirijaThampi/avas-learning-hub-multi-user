@@ -1,5 +1,7 @@
 package com.deepthi.avaslearninghub.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,8 +13,13 @@ public class Unit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "subject_id", nullable = false)
-    private Long subjectId;
+//    @Column(name = "subject_id", nullable = false)
+//    private Long subjectId;
+//    @JsonManagedReference
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
     @Column(nullable = false, length = 120)
     private String title;
     @Lob
@@ -30,8 +37,8 @@ public class Unit {
     public Unit() {
     }
 
-    public Unit(Long subjectId, String title, String description, Integer sortOrder) {
-        this.subjectId = subjectId;
+    public Unit(Subject subject, String title, String description, Integer sortOrder) {
+        this.subject = subject;
         this.title = title;
         this.sortOrder = sortOrder;
         this.description = description;
@@ -41,12 +48,12 @@ public class Unit {
         return id;
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getTitle() {
@@ -92,4 +99,6 @@ public class Unit {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
