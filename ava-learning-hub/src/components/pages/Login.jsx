@@ -1,8 +1,11 @@
 import { useState } from "react";
+import {useNavigate} from "react-router";
 import CustomButton from "../common/CustomButton";
 import { loginUser } from "../../services/authService";
 
 export default function Login() {
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -14,6 +17,12 @@ export default function Login() {
 
     try{
      const data = await loginUser(formData);
+     localStorage.setItem("token", data.token);
+     localStorage.setItem("userId", data.userId);
+     localStorage.setItem("userName", data.name);
+     localStorage.setItem("userEmail", data.email);
+
+     navigate("/subjects");
      console.log("Login successful",data);   
 
     }catch(error){
