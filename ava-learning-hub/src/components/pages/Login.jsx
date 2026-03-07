@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useNavigate} from "react-router";
+import {useNavigate,Link} from "react-router";
 import CustomButton from "../common/CustomButton";
 import { loginUser } from "../../services/authService";
 
@@ -58,7 +58,9 @@ export default function Login() {
 
         <CustomButton text="Login" type="submit"/>
       </form>
-
+            <p style={{ textAlign: "center", marginTop: "1rem" }}>
+                Don’t have an account? <Link to="/register">Register</Link>
+            </p>
     </main>
   );
 }

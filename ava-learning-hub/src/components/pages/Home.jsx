@@ -16,12 +16,14 @@ export default function Home(){
                 <p style={{display:"flex",justifyContent:"center", color:"#7BA05B"}}><strong><em>Your personal space to explore, reflect, and grow 🌱</em></strong></p>
             </div>
             <section className="features">
-                <Link to={"/subjects"}><div className="feature-card">📚 Track Subjects</div></Link>
+                <Link to={"/login"}><div className="feature-card">🔐 Login</div></Link>
+                <Link to={"/register"}><div className="feature-card">📝 Register</div></Link>
+                {/* <Link to={"/subjects"}><div className="feature-card">📚 Track Subjects</div></Link>
                 <Link to={"/reflections"}><div className="feature-card">✍ Reflect on Learning</div></Link>
-                <Link to={"/profile"}><div className="feature-card">📊 Celebrate Progress</div></Link>
-                <div className="feature-card">🌍 Coming soon: multi-user!</div>
+                <Link to={"/profile"}><div className="feature-card">📊 Celebrate Progress</div></Link> */}
+                {/* <div className="feature-card">🌍 Coming soon: multi-user!</div> */}
             </section>
-            <button onClick={() => navigate("/subjects")} className="get-started-button">Get Started</button>
+            <button onClick={() => navigate("/login")} className="get-started-button">Get Started</button>
         </main>
     )
 }

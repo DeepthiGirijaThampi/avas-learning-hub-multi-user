@@ -10,6 +10,8 @@ import Units from "./components/pages/Units";
 import Contacts from "./components/pages/Contacts";
 import './App.css'
 import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 function App() {
   
   return (
@@ -18,12 +20,24 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/> 
+        <Route path="/register" element={<Register/>}/>
         <Route path="/about" element={<About/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/reflections" element={<Reflections/>}/>
-        <Route path="/subjects" element={<Subjects/>}/>
-        <Route path="/units/:subjectId" element={<Units/>}/>
         <Route path="/contacts" element={<Contacts/>}/>
+       
+        <Route path="/profile" element={<ProtectedRoute>
+                                        <Profile/>
+                                        </ProtectedRoute>
+                                        }/>
+        <Route path="/reflections" element={<ProtectedRoute>
+                                           <Reflections/>
+                                           </ProtectedRoute>}/>
+        <Route path="/subjects" element={<ProtectedRoute>
+                                          <Subjects/>
+                                        </ProtectedRoute>}/>
+        <Route path="/units/:subjectId" element={<ProtectedRoute>
+                                                  <Units/>
+                                                  </ProtectedRoute>}/>
+        
         <Route path="*" element={<Navigate to="/"/>} />
       </Routes>
       <Footer></Footer>
