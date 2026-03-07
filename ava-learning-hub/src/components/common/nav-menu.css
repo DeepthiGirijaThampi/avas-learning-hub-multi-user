@@ -10,7 +10,9 @@
 .menu-links {
   display: flex;
   gap: 1rem;
+  
 }
+
 /* hide the hamburger for bigger screen */
 .hamburger {
   display: none; 
