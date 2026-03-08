@@ -3,6 +3,7 @@ import './learning.css';
 import { useParams,useLocation, Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import './units.css'
+import { getUnitsBySubject, createUnit, updateUnit } from "../../services/unitService";
 //functional component for Units
 export default function Units() {
     // Get subjectId from URL parameters
@@ -17,12 +18,28 @@ export default function Units() {
         return storedLimit ? parseInt(storedLimit,10) :null;
     }
     //load units that are saved from local storage 
-    const loadUnits = ()=>{
-        const saved = localStorage.getItem(`units-${subjectId}`);
-        return saved? JSON.parse(saved):[]
-    }
+    // const loadUnits = ()=>{
+    //     const saved = localStorage.getItem(`units-${subjectId}`);
+    //     return saved? JSON.parse(saved):[]
+    // }
+
+    //load units from backend 
+    useEffect(() => {
+    const fetchUnits = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            const data = await getUnitsBySubject(subjectId, token);
+            setUnits(data);
+        } catch (error) {
+            console.error("Failed to load units:", error.message);
+        }
+    };
+
+    fetchUnits();
+}, [subjectId]);
     //state variables 
-    const [units, setUnits] = useState(loadUnits); // setting the units
+    const [units, setUnits] = useState([]); // setting the units
     const [unitLimit, setUnitLimit] = useState(loadLimit); // setting the limit
     const [showLimitInput, setShowLimitInput] = useState(false); // show the limit input
     const [inputValue, setInputValue] = useState(''); // value entered in limit input
@@ -32,9 +49,11 @@ export default function Units() {
     const [error, setError] = useState('');//error message 
 
     // useEffect to run everytime units or subjectId changes and stores latest units in localStorage
-    useEffect(()=>{
-        localStorage.setItem(`units-${subjectId}`,JSON.stringify(units))
-    },[units,subjectId]);
+    // useEffect(()=>{
+    //     localStorage.setItem(`units-${subjectId}`,JSON.stringify(units))
+    // },[units,subjectId]);
+
+
 
     //To run every time unitLimit or subjectId changes. and stored the unitLimit to localstorage 
     useEffect(()=>{
@@ -67,25 +86,58 @@ export default function Units() {
         setShowUnitForm(true)
     }
     //submit handler for saving the uinit
-    const handleSaveUnit = (e)=> {
+    const handleSaveUnit = async (e)=> {
         e.preventDefault();
-        const newUnit = {
-        id: Date.now(),
-        name: unitName || `Unit ${units.length + 1}`,
-        description: unitDescription,
-        completed: false
-        };
-        setUnits([...units, newUnit]);
-        setUnitName('');
-        setUnitDescription('');
-        setShowUnitForm(false);
+
+        const token = localStorage.getItem("token");
+
+        const unitData = {
+            subject : {id : Number(subjectId)},
+            title : unitName || `Unit ${units.length + 1}`,
+            description: unitDescription,
+            sortOrder: units.length + 1
+        }
+
+        try{
+            const savedUnit = await createUnit(unitData,token);
+            setUnits((prevUnits) => [...prevUnits,savedUnit])
+            setUnitName("");
+            setUnitDescription("");
+            setShowUnitForm(false);
+
+        }catch(error){
+            console.error("Failed to save unit:", error.message);
+        }
+        // const newUnit = {
+        // id: Date.now(),
+        // name: unitName || `Unit ${units.length + 1}`,
+        // description: unitDescription,
+        // completed: false
+        // };
+        // setUnits([...units, newUnit]);
+        // setUnitName('');
+        // setUnitDescription('');
+        // setShowUnitForm(false);
     }
     // for the checkbox toggle to mark completion of unit
-    const toggleUnitComplete =(id) =>{
-        const updated = units.map((unit) =>
-        unit.id === id ? { ...unit, completed: !unit.completed } : unit
-        );
-        setUnits(updated);
+    const toggleUnitComplete =async (unit) =>{
+        // const updated = units.map((unit) =>
+        // unit.id === id ? { ...unit, completed: !unit.completed } : unit
+        // );
+        // setUnits(updated);
+
+        const token = localStorage.getItem("token");
+        const updatedUnitData = {
+            ...unit,
+            completed : !unit.completed
+        };
+
+        try{
+            const updatedUnit = await updateUnit(unit.id,updatedUnitData,token);
+            setUnits((prevUnits) => prevUnits.map((u) => (u.id === unit.id ? updatedUnit : u)) );
+        }catch(error){
+            console.error("Failed to update unit:", error.message);
+        }
     }
 //rendering starts here
 return (
@@ -173,9 +225,9 @@ return (
                             <input
                             type="checkbox"
                             checked={unit.completed}
-                            onChange={() => toggleUnitComplete(unit.id)}
+                            onChange={() => toggleUnitComplete(unit)}
                             />
-                            {unit.name}
+                            {unit.title}
                         </label>
 
                         </li>
