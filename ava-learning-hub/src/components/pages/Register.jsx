@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import CustomButton from "../common/CustomButton";
 import { registerUser } from "../../services/authService";
-
+import './auth.css';
 export default function Register() {
   const navigate = useNavigate();
 

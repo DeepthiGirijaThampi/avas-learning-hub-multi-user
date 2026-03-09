@@ -2,7 +2,7 @@ import { useState } from "react";
 import {useNavigate,Link} from "react-router";
 import CustomButton from "../common/CustomButton";
 import { loginUser } from "../../services/authService";
-
+import './auth.css';
 export default function Login() {
 
   const navigate = useNavigate();
