@@ -11,7 +11,7 @@ export default function Login() {
     email: "",
     password: ""
   });
-  
+  const [error, setError] = useState("");
   const handleLogin = async (e) =>{
     e.preventDefault();
 
@@ -27,6 +27,11 @@ export default function Login() {
 
     }catch(error){
      console.log("Login failed",error.message);
+     setFormData({
+      email: "",
+      password:""
+     })
+     setError("Login failed");
     }
   }
 
@@ -42,6 +47,7 @@ export default function Login() {
           onChange={(e)=>
             setFormData({...formData,email:e.target.value})
           }
+          required
         />
 
         <br/><br/>
@@ -52,11 +58,13 @@ export default function Login() {
           value={formData.password}
           onChange={(e)=>
           setFormData({...formData,password:e.target.value})}
+          required
         />
 
         <br/><br/>
 
         <CustomButton text="Login" type="submit"/>
+        {error && <p className="form-error">{error}</p>}
       </form>
             <p style={{ textAlign: "center", marginTop: "1rem" }}>
                 Don’t have an account? <Link to="/register">Register</Link>

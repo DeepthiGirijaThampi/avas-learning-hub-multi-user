@@ -11,18 +11,24 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    confirmPassword: ""
   });
-
+  const [error, setError] = useState("");
   const handleRegister = async (e) => {
     e.preventDefault();
-
+    if(formData.password != formData.confirmPassword){
+      console.log("Passwords MissMatch");
+      setError("Passwords do not match.");
+      return;
+    }
     try {
-      await registerUser(formData);
-      alert("Registration successful! Please login.");
+      const { confirmPassword, ...userData } = formData;
+      await registerUser(userData);
+      // alert("Registration successful! Please login.");
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error.message);
-      alert(error.message);
+      // alert(error.message);
     }
   };
 
@@ -39,6 +45,7 @@ export default function Register() {
           onChange={(e) =>
             setFormData({ ...formData, username: e.target.value })
           }
+          required
         />
         <br /><br />
 
@@ -50,6 +57,7 @@ export default function Register() {
           onChange={(e) =>
             setFormData({ ...formData, name: e.target.value })
           }
+          required
         />
         <br /><br />
 
@@ -61,6 +69,7 @@ export default function Register() {
           onChange={(e) =>
             setFormData({ ...formData, email: e.target.value })
           }
+          required
         />
         <br /><br />
 
@@ -69,14 +78,27 @@ export default function Register() {
           name="password"
           placeholder="Password"
           value={formData.password}
+          minLength="6"
           onChange={(e) =>
             setFormData({ ...formData, password: e.target.value })
           }
+          required
         />
         <br /><br />
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={formData.confirmPassword}
+          onChange={(e) =>
+            setFormData({...formData,confirmPassword: e.target.value})
+          }
+          required
+        />
 
         <CustomButton text="Register" type="submit" />
       </form>
+      {error && <p className="form-error">{error}</p>}
     </main>
   );
 }
