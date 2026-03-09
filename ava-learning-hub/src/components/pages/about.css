@@ -1,0 +1,94 @@
+:root{
+  --white-color: #fdf5f5;
+  --shading-color :rgba(0, 0, 0, 0.849);
+  --primary-color:#3a5a40;
+  --primary-color-green : #91c7b1;
+  --sage-green :#7BA05B;
+  --green-one:#ccd5ae;
+  --green-two:#e9edc9;
+  --green-three:#57cc99;
+  --primary-color-darker-green : #294D3F;
+  --text-color: #444;
+  --green:rgb(39, 124, 34);
+  --pink:#7b3771;
+  --pink-two: #de67a6;
+}
+
+.about-page h2 {
+  color:var(--white-color);
+  margin-bottom: 1rem;
+}
+.about-page {
+  position: relative;
+  background-image: url('../../assets/background-seven.jpg'); 
+  background-size: cover;
+  background-position: center;
+  color:var(--white-color);
+  text-shadow: 2px 2px 5px var(--shading-color);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-page p{
+  margin-bottom: 0.5rem;
+  line-height: 2.4;
+}
+
+.about-section{
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2;
+  margin: 0 auto;
+}
+
+.about-picture{
+  width:400px;
+  border: var(--pink-two) solid 10px;
+  margin-right: 100px
+  }
+
+@media screen and (max-width: 1366px) {
+  .about-page {
+    padding: 2rem;
+  }
+
+  .about-section {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .about-picture {
+    width: 350px;
+    margin-left: 20px;
+    margin-right: 60px;
+  }
+}
+  
+@media screen and (max-width: 768px) {
+  .about-page {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-section {
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 100%;
+  }
+
+  .about-picture {
+    width: 70%;
+    margin: 0 auto;
+    border-width: 6px;
+  }
+  .about-page p {
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+}

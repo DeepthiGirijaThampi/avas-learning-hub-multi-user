@@ -1,0 +1,58 @@
+/* Center the login/register section */
+.page-container {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card around the form */
+.page-container form {
+  background: rgba(255,255,255,0.9);
+  padding: 2rem;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Input styling */
+.page-container input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+/* Focus effect */
+.page-container input:focus {
+  outline: none;
+  border-color: #7BA05B;
+  box-shadow: 0 0 0 2px rgba(123,160,91,0.2);
+}
+
+/* Space above button */
+.page-container button {
+  margin-top: 10px;
+}
+
+/* Register/Login link */
+.page-container p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.page-container a {
+  color: #3a5a40;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.page-container a:hover {
+  text-decoration: underline;
+}

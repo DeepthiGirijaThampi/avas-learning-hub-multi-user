@@ -1,0 +1,122 @@
+.reflection-display{
+  width: 300px;
+  border: none;
+  border-radius: 50px;
+  overflow: hidden; 
+  margin: 20px;
+  background-color: #e1edd69e;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.626); 
+}
+.reflection-display:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background-color: var(--green-one);
+}
+.h3-div{
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.reflect-div{
+  background-color: #7ba05b1d;
+  padding: 1rem;
+  backdrop-filter: blur(2px); 
+}
+.h3-div,
+.reflect-div {
+  margin: 0;
+  border: none;
+}
+.reflect-p{
+  margin: 0.5rem 0;
+}
+.page-container{
+  border: 1px solid #ccc;
+  color: #7BA05B;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+.reflections-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.reflections-form{
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color:  #f8f8f8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.519);
+}
+.reflections-form  textarea , .reflections-form select{
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color: var(--primary-color);
+}
+.reflections-form select:focus,.reflections-form textarea:focus {
+  outline: none;
+  border-color: #7BA05B; 
+  box-shadow: 0 0 5px #7BA05B;
+}
+
+/* animation  */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reflection-display {
+  animation: fadeIn 0.4s ease-in;
+}
+/* Media Queries */
+
+@media screen and (max-width: 1366px) {
+  .reflection-display {
+    width: 250px;
+    padding: 0px;
+  }
+  .reflections-form {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  .h3-div{
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 35%;
+    margin: 0px;
+  }
+  .h3-sub{
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .reflection-display {
+    width: 80%;
+    padding: 0rem;
+    margin: 10px auto;
+  }
+  .reflections-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .reflections-form {
+    max-width: 90%;
+    padding: 1rem;
+  }
+}
