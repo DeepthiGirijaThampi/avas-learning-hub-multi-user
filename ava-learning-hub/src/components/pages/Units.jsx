@@ -3,7 +3,7 @@ import './learning.css';
 import { useParams,useLocation, Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import './units.css'
-import { getUnitsBySubject, createUnit, updateUnit } from "../../services/unitService";
+import { getUnitsBySubject, createUnit, updateUnit ,deleteUnit} from "../../services/unitService";
 //functional component for Units
 export default function Units() {
     // Get subjectId from URL parameters
@@ -139,6 +139,23 @@ export default function Units() {
             console.error("Failed to update unit:", error.message);
         }
     }
+
+    //handler for deleting unit
+    const handleDeleteUnit = async (unitId) =>{
+
+        const token = localStorage.getItem("token");
+
+        try{
+
+            await deleteUnit(unitId,token);
+            setUnits((prevUnits) =>prevUnits.filter((unit) => unit.id !== unitId));
+
+        }catch(error){
+            console.error("Failed to delete unit:", error.message);
+        }
+
+    }
+
 //rendering starts here
 return (
         <main className="page-container">
@@ -228,6 +245,7 @@ return (
                             onChange={() => toggleUnitComplete(unit)}
                             />
                             {unit.title}
+                        <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/>
                         </label>
 
                         </li>

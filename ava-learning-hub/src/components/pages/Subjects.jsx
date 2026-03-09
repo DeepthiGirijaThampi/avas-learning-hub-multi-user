@@ -2,7 +2,7 @@ import CustomButton from "../common/CustomButton";
 import './learning.css';
 import { useEffect, useState } from "react";
 import SubjectCard from "../common/SubjectCard";
-import { getSubjectsByUser, createSubject } from "../../services/subjectService";
+import { getSubjectsByUser, createSubject, deleteSubject} from "../../services/subjectService";
 //Subjects component handles the creation and display of subjects
 export default function Subjects(){
     //load the subjects from local storage 
@@ -75,6 +75,25 @@ export default function Subjects(){
         // setSubjectDescription("");
     }
 
+    //detete subject 
+    // const handleDeleteSubject = async (subjectId) => {
+    // const token = localStorage.getItem("token");
+
+    // if (!window.confirm("Are you sure you want to delete this subject?")) {
+    //     return;
+    // }
+
+    // try {
+    //     await deleteSubject(subjectId, token);
+
+    //     setSubjects((prevSubjects) =>
+    //         prevSubjects.filter((subject) => subject.id !== subjectId)
+    //     );
+    // } catch (error) {
+    //     console.error("Failed to delete subject:", error.message);
+    // }
+    // }
+
     //rendering 
     return(
      
@@ -105,7 +124,15 @@ export default function Subjects(){
             ):(
                 subjects.map((subject)=>(
 
-                    <SubjectCard key={subject.id} subject={subject}/>
+                    <div key={subject.id}>
+                        <SubjectCard subject={subject} />
+
+                        {/* <CustomButton
+                            text="Delete"
+                            onClick={() => handleDeleteSubject(subject.id)}
+                        /> */}
+                    </div>
+                    
                     
                 ))
             )}

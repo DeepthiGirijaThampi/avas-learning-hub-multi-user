@@ -57,3 +57,19 @@ export async function updateUnit(unitId, unitData, token) {
 
   return response.json();
 }
+
+//delete units - unitId, token
+export async function deleteUnit(unitId, token) {
+  const response = await fetch(`${API_BASE_URL}/${unitId}`, {
+            method: "DELETE",
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to delete unit");
+        }
+
+        return true;
+    }
