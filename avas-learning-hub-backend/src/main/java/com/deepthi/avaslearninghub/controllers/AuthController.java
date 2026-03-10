@@ -20,15 +20,27 @@ public class AuthController {
         this.authService = authService;
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request){
-        authService.register(request);
-        return new ResponseEntity<>("User registerd successfully", HttpStatus.CREATED);
+        try{
+            authService.register(request);
+            return new ResponseEntity<>("User registerd successfully", HttpStatus.CREATED);
+        }catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
+        }
+
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request){
+        try{
+            return ResponseEntity.ok(authService.login(request));
+        }catch(RuntimeException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(e.getMessage());
+        }
 
-        return ResponseEntity.ok(authService.login(request));
     }
 }
