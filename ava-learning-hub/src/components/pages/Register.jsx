@@ -16,7 +16,8 @@ export default function Register() {
   const [error, setError] = useState("");
   const handleRegister = async (e) => {
     e.preventDefault();
-    if(formData.password != formData.confirmPassword){
+    setError("");
+    if(formData.password !== formData.confirmPassword){
       console.log("Passwords MissMatch");
       setError("Passwords do not match.");
       return;
@@ -29,13 +30,24 @@ export default function Register() {
     } catch (error) {
       console.error("Registration failed:", error.message);
       // alert(error.message);
+      setError(error.message);
+      setFormData({
+          ...formData,
+          password: "",
+          confirmPassword: ""
+        });
     }
   };
 
   return (
     <main className="page-container">
       <h1 className="page-heading">Register</h1>
-
+      <p className="auth-subtitle">
+        Create an account to track your learning progress.
+      </p>
+    {error && (
+        <p className="form-error">{error}</p>
+      )}
       <form onSubmit={handleRegister}>
         <input
           type="text"
@@ -98,7 +110,9 @@ export default function Register() {
 
         <CustomButton text="Register" type="submit" />
       </form>
-      {error && <p className="form-error">{error}</p>}
+      <p className="auth-note">
+        Create your account to start building your personalized learning dashboard.
+      </p>
     </main>
   );
 }

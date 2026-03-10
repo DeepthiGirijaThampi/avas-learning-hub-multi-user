@@ -37,8 +37,17 @@ export default function Login() {
 
   return (
     <main className="page-container">
-      <h1 className="page-heading">Login</h1>
-
+    {/* <div className="floating-icons">
+      <span>📚</span>
+      <span>✏️</span>
+      <span>🎓</span>
+      <span>📖</span>
+      
+    </div> */}
+      <h1 className="page-heading">Login </h1>
+      <p className="auth-subtitle">
+        Welcome back! Continue your learning journey.
+      </p>
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -68,6 +77,9 @@ export default function Login() {
       </form>
             <p style={{ textAlign: "center", marginTop: "1rem" }}>
                 Don’t have an account? <Link to="/register">Register</Link>
+            </p>
+            <p className="auth-note">
+              Track your subjects, units, reflections, and progress in one place.
             </p>
     </main>
   );

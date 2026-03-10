@@ -1,35 +1,31 @@
 //import the css for styling 
 import './profile.css'
-import avaImg from '../../assets/ava.png';
+import avatar1 from '../../assets/ava.png';
+import avatar2 from '../../assets/kitty.png';
+import avatar3 from '../../assets/women.png';
+import avatar4 from '../../assets/boy.png';
+import avatar5 from '../../assets/user.png';
 import { useEffect, useState } from "react";
 import { getSubjectsByUser } from "../../services/subjectService";
 import { getUnitsBySubject } from "../../services/unitService";
 export default function Profile(){
    
-    // Get subjects from localStorage
+    //avatar personalization
+    const avatars = [avatar1,avatar2,avatar3,avatar4,avatar5];
 
-    // const storedSubjects = JSON.parse(localStorage.getItem('subjects'))||[];
-
-    //Get units from localStorage for each subject
-    //count total units and completed ones 
-    //show in progress bar
-
-    // const subjectProgress = storedSubjects.map( (subject)=>{
-    //     const units = JSON.parse(localStorage.getItem(`units-${subject.id}`))||[];
-    //     const total = units.length;
-    //     const completed = units.filter(unit => unit.completed).length;
-    //     const progress = total === 0? 0: Math.round((completed/total)*100);
-    //     return{
-    //         ...subject,
-    //         progress
-    // }
-    // })
+    const [selectedAvatar, setSelectedAvatar] = useState(localStorage.getItem("avatar")|| userimg);
 
     const [subjectProgress, setSubjectProgress] = useState([]);
     const userName = localStorage.getItem("userName") || "User";
     const userEmail = localStorage.getItem("userEmail") || "No email";
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
+
+    //handler for avatar
+    const handleAvatarChange = (avatar) => {
+    setSelectedAvatar(avatar);
+    localStorage.setItem("avatar", avatar);
+    };
 
     useEffect(() => {
     const fetchProfileData = async () => {
@@ -70,12 +66,25 @@ export default function Profile(){
             <div className="profile-wrapper">
                  {/* Left section: User avatar and personal info */}
                 <section className="profile-left">
-                    <img src={avaImg} alt="Ava's Avatar" className='avatar-img' />
-                    <h2 >{userName}</h2>
-                    <div className="profile-info-row">
-                        <span className="label">Email : </span>
-                        <span className="value">{userEmail}</span>
-                    </div>
+                    <img src={selectedAvatar} alt="Ava's Avatar" className='avatar-img' />
+                <div className="avatar-options">
+                    {avatars.map((avatar, index) => (
+                        <img
+                        key={index}
+                        src={avatar}
+                        alt={`Avatar ${index + 1}`}
+                        className={`avatar-option ${
+                            selectedAvatar === avatar ? "selected-avatar" : " "
+                        }`}
+                        onClick={() => handleAvatarChange(avatar)}
+                        />
+                    ))}
+                </div>
+                <h2 >{userName}</h2>
+                 <div className="profile-info-row">
+                    <span className="label">Email : </span>
+                    <span className="value">{userEmail}</span>
+                </div>
                     {/* table to display info */}
                     {/* <table className="profile-info-table">
                     <tbody>
