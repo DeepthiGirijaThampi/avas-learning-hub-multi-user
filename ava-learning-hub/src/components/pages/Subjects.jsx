@@ -76,23 +76,23 @@ export default function Subjects(){
     }
 
     //detete subject 
-    // const handleDeleteSubject = async (subjectId) => {
-    // const token = localStorage.getItem("token");
+    const handleDeleteSubject = async (subjectId) => {
+    const token = localStorage.getItem("token");
 
-    // if (!window.confirm("Are you sure you want to delete this subject?")) {
-    //     return;
-    // }
+    if (!window.confirm("Are you sure you want to delete this subject?")) {
+        return;
+    }
 
-    // try {
-    //     await deleteSubject(subjectId, token);
+    try {
+        await deleteSubject(subjectId, token);
 
-    //     setSubjects((prevSubjects) =>
-    //         prevSubjects.filter((subject) => subject.id !== subjectId)
-    //     );
-    // } catch (error) {
-    //     console.error("Failed to delete subject:", error.message);
-    // }
-    // }
+        setSubjects((prevSubjects) =>
+            prevSubjects.filter((subject) => subject.id !== subjectId)
+        );
+    } catch (error) {
+        console.error("Failed to delete subject:", error.message);
+    }
+    }
 
     //rendering 
     return(
@@ -127,10 +127,10 @@ export default function Subjects(){
                     <div key={subject.id}>
                         <SubjectCard subject={subject} />
 
-                        {/* <CustomButton
+                        <CustomButton
                             text="Delete"
                             onClick={() => handleDeleteSubject(subject.id)}
-                        /> */}
+                        />
                     </div>
                     
                     

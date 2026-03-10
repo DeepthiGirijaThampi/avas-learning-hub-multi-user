@@ -245,9 +245,9 @@ return (
                             onChange={() => toggleUnitComplete(unit)}
                             />
                             {unit.title}
-                        <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/>
+                        
                         </label>
-
+                        <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/>
                         </li>
                         
                     ))}
