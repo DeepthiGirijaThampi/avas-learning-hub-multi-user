@@ -4,6 +4,7 @@ import { useParams,useLocation, Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import './units.css'
 import { getUnitsBySubject, createUnit, updateUnit ,deleteUnit} from "../../services/unitService";
+import { FaTrash } from "react-icons/fa";
 //functional component for Units
 export default function Units() {
     // Get subjectId from URL parameters
@@ -245,9 +246,10 @@ return (
                             onChange={() => toggleUnitComplete(unit)}
                             />
                             {unit.title}
-                        
+                        <FaTrash className="delete-icon" onClick={() => handleDeleteUnit(unit.id)} />
                         </label>
-                        <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/>
+                        {/* <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/> */}
+                        
                         </li>
                         
                     ))}

@@ -3,25 +3,18 @@ import './learning.css';
 import { useEffect, useState } from "react";
 import SubjectCard from "../common/SubjectCard";
 import { getSubjectsByUser, createSubject, deleteSubject} from "../../services/subjectService";
+
 //Subjects component handles the creation and display of subjects
 export default function Subjects(){
-    //load the subjects from local storage 
-    // const loadSubjects = ()=>{
-    //     const saved = localStorage.getItem('subjects');
-    //     return saved ? JSON.parse(saved) : [];
-    // }
-
+    
     // useState for setting list of subjects 
     const [subjects,setSubjects] = useState([]); 
     // useState for subject name
     const [subjectName,setSubjectName] = useState("") 
     //usestate for subject description
     const [subjectDescription,setSubjectDescription] = useState("") 
-    // useEffect to update localStorage whenever the subjects state changes
-    // useEffect(()=>{
-    //     localStorage.setItem('subjects',JSON.stringify(subjects))
-
-    // },[subjects]);
+    //confirn delete
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
     //useEffect to load subjects from the backend 
     useEffect(()=>{
@@ -62,26 +55,12 @@ export default function Subjects(){
         }catch(error){
             console.error("Failed to add subject:", error.message);
         }
-        // //create a new subject object 
-        // const newSubject = {
-        //     id: Date.now(),
-        //     name: subjectName,
-        //     description: subjectDescription
-        // };
-
-        // // Update the subjects state with the new subject
-        // setSubjects([...subjects,newSubject]);
-        // setSubjectName("");
-        // setSubjectDescription("");
+        
     }
 
     //detete subject 
     const handleDeleteSubject = async (subjectId) => {
     const token = localStorage.getItem("token");
-
-    if (!window.confirm("Are you sure you want to delete this subject?")) {
-        return;
-    }
 
     try {
         await deleteSubject(subjectId, token);
@@ -89,6 +68,7 @@ export default function Subjects(){
         setSubjects((prevSubjects) =>
             prevSubjects.filter((subject) => subject.id !== subjectId)
         );
+        setConfirmDeleteId(null);
     } catch (error) {
         console.error("Failed to delete subject:", error.message);
     }
@@ -124,13 +104,31 @@ export default function Subjects(){
             ):(
                 subjects.map((subject)=>(
 
-                    <div key={subject.id}>
-                        <SubjectCard subject={subject} />
-
-                        <CustomButton
-                            text="Delete"
-                            onClick={() => handleDeleteSubject(subject.id)}
+                    <div key={subject.id} className="subject-item">
+                        <SubjectCard subject={subject} 
+                        onDelete={() => setConfirmDeleteId(subject.id)}
                         />
+
+                        {/* <CustomButton text="Delete" onClick={()=>setConfirmDeleteId(subject.id)}/> */}
+
+                        {confirmDeleteId === subject.id && (
+                                <div className="delete-confirm-box">
+                                    <p>Are you sure you want to delete this subject?</p>
+
+                                    <div className="delete-confirm-buttons">
+                                        <CustomButton
+                                            text="Yes, Delete"
+                                            onClick={() => handleDeleteSubject(subject.id)}
+                                        />
+                                        <CustomButton
+                                            text="Cancel"
+                                            onClick={() => setConfirmDeleteId(null)}
+                                        />
+                                    </div>
+                                </div>
+                            ) 
+                        }
+                        
                     </div>
                     
                     
