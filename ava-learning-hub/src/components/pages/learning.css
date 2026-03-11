@@ -65,6 +65,7 @@
 
 /* the subject card */
 .subject-card {
+  position: relative; 
   color: #7BA05B;
   padding: 1rem;
   width: 200px;
@@ -126,7 +127,27 @@
   opacity:1;
   transform:scale(1.2);
 }
+
+/* container for icons */
+.card-icons {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+/* edit icon */
+.edit-icon {
+  cursor: pointer;
+  color: #7BA05B;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
   
+.edit-icon:hover {
+  transform: scale(1.15);
+}
 /* animation  */
 @keyframes fadeIn {
   from {

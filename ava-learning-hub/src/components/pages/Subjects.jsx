@@ -2,7 +2,7 @@ import CustomButton from "../common/CustomButton";
 import './learning.css';
 import { useEffect, useState } from "react";
 import SubjectCard from "../common/SubjectCard";
-import { getSubjectsByUser, createSubject, deleteSubject} from "../../services/subjectService";
+import { getSubjectsByUser, createSubject, deleteSubject, editSubject} from "../../services/subjectService";
 
 //Subjects component handles the creation and display of subjects
 export default function Subjects(){
@@ -15,6 +15,8 @@ export default function Subjects(){
     const [subjectDescription,setSubjectDescription] = useState("") 
     //confirn delete
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+    //subject edit
+    const [editingSubject, setEditingSubject] = useState(null);
 
     //useEffect to load subjects from the backend 
     useEffect(()=>{
@@ -33,6 +35,14 @@ export default function Subjects(){
         fetchSubjects();
     },[])
 
+
+    //edit handler 
+    const handleEditSubject = (subject) => {
+        setEditingSubject(subject);
+        setSubjectName(subject.name);
+        setSubjectDescription(subject.description);
+    }
+
     // Handle form submission to add a new subject
     const handleAddSubject = async (e)=>{
         //prevent reaload
@@ -47,11 +57,30 @@ export default function Subjects(){
         };
 
         try{
+            if (editingSubject) {
+
+            const updatedSubject = await editSubject(
+            editingSubject.id,
+            subjectData,
+            token
+            );
+
+            setSubjects((prevSubjects) =>
+            prevSubjects.map((s) =>
+                s.id === editingSubject.id ? updatedSubject : s
+            )
+             );
+
+            setEditingSubject(null);
+            setSubjectName("");
+            setSubjectDescription("");
+         }else{
             const savedSubject = await createSubject(subjectData,token);
             // setSubjects([...subjects,savedSubject]);
             setSubjects((prevSubjects) => [...prevSubjects, savedSubject]);
             setSubjectName("");
             setSubjectDescription("");
+         }   
         }catch(error){
             console.error("Failed to add subject:", error.message);
         }
@@ -73,7 +102,7 @@ export default function Subjects(){
         console.error("Failed to delete subject:", error.message);
     }
     }
-
+    
     //rendering 
     return(
      
@@ -107,6 +136,7 @@ export default function Subjects(){
                     <div key={subject.id} className="subject-item">
                         <SubjectCard subject={subject} 
                         onDelete={() => setConfirmDeleteId(subject.id)}
+                        onEdit={() => handleEditSubject(subject)}
                         />
 
                         {/* <CustomButton text="Delete" onClick={()=>setConfirmDeleteId(subject.id)}/> */}
