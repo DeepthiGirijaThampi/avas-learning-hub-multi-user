@@ -8,7 +8,7 @@ export default function About(){
         <main className='about-page' >
             <section className='about-section'>
                 <h2>About Ava’s Learning Hub</h2>
-                <p><em>Created by <strong >Deepthi Girija Thampi</strong>, as part of a solo project to inspire young learners like Ava 🧡</em></p>
+                <p><em>Created by <strong >Deepthi Girija Thampi</strong> as a solo project designed to inspire young learners like Ava 💖 </em></p>
                 <p>
                 Ava’s Learning Hub is a multi-user web application that allows students to organize their learning by tracking subjects, units, reflections, and progress in one place.
                 </p>

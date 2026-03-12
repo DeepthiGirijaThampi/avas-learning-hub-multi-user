@@ -20,6 +20,9 @@ export default function Register() {
     if(formData.password !== formData.confirmPassword){
       console.log("Passwords MissMatch");
       setError("Passwords do not match.");
+      setTimeout(()=>{
+        setError("");
+      },3000);
       return;
     }
     try {
@@ -31,6 +34,9 @@ export default function Register() {
       console.error("Registration failed:", error.message);
       // alert(error.message);
       setError(error.message);
+      setTimeout(()=>{
+        setError("");
+      },3000);
       setFormData({
           ...formData,
           password: "",

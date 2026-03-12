@@ -143,11 +143,11 @@ export default function Subjects(){
 
                         {confirmDeleteId === subject.id && (
                                 <div className="delete-confirm-box">
-                                    <p>Are you sure you want to delete this subject?</p>
+                                    <p>⚠️ Are you sure you want to delete this subject?</p>
 
                                     <div className="delete-confirm-buttons">
                                         <CustomButton
-                                            text="Yes, Delete"
+                                            text="Delete"
                                             onClick={() => handleDeleteSubject(subject.id)}
                                         />
                                         <CustomButton

@@ -31,7 +31,10 @@ export default function Login() {
       email: "",
       password:""
      })
-     setError("Login failed");
+     setError("Invalid email or password");
+     setTimeout(()=>{
+      setError("");
+     },3000);
     }
   }
 

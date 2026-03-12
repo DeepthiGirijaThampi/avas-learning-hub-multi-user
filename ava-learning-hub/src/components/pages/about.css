@@ -22,7 +22,7 @@
 }
 .about-page {
   position: relative;
-  background-image: url('../../assets/background-seven.jpg'); 
+  /* background-image: url('../../assets/background-seven.jpg');  */
   background-size: cover;
   background-position: center;
   color:var(--white-color);
@@ -56,7 +56,9 @@
 
 .about-picture{
   /* width:400px; */
-  border: var(--pink-two) solid 10px;
+  border: var(--green-one) solid 10px;
+  border-radius:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
   margin-right: 100px
   }
 

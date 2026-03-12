@@ -13,7 +13,7 @@ export default function Profile(){
     //avatar personalization
     const avatars = [avatar1,avatar2,avatar3,avatar4,avatar5];
 
-    const [selectedAvatar, setSelectedAvatar] = useState(localStorage.getItem("avatar")|| userimg);
+    const [selectedAvatar, setSelectedAvatar] = useState(localStorage.getItem("avatar")|| avatar5);
 
     const [subjectProgress, setSubjectProgress] = useState([]);
     const userName = localStorage.getItem("userName") || "User";

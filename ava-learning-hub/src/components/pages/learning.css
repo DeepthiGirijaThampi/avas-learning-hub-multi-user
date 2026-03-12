@@ -81,14 +81,20 @@
   background-color: var(--green-one);
 }
 
-/* delete confirmation in subjects*/
+/* delete confirmation in subjects.  #d8e2dc; */
 .delete-confirm-box {
   margin-top: 6px;
-  padding: 8px;
-  border: 1px solid #d8e2dc;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.75);
+  padding: 12px 16px;
+  border: 2px solid #7BA05B;
+  border-radius: 15px;
+  background: #e1edd69e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.625);
   text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.delete-confirm-box:hover {
+  transform: scale(1.02);
 }
 
 .delete-confirm-box p {
@@ -100,7 +106,7 @@
 .delete-confirm-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
@@ -142,10 +148,12 @@
   cursor: pointer;
   color: #7BA05B;
   font-size: 1rem;
-  transition: transform 0.2s ease;
+  opacity: 0.7;
+  transition: transform 0.2s ease , opacity 0.2s ease;
 }
   
 .edit-icon:hover {
+  opacity: 1;
   transform: scale(1.15);
 }
 /* animation  */
@@ -177,17 +185,15 @@
 }
 
 @media screen and (max-width: 768px) {
-  .subject-card {
-    width: 80%;
-    padding: 1rem;
-    margin: 10px auto;
-  }
   .subjects-container {
     flex-direction: column;
     align-items: center;
   }
   .subject-card {
-    max-width: 90%;
+    width: 150px;
     padding: 1rem;
+    margin: 10px auto;
   }
+  
+  
 }

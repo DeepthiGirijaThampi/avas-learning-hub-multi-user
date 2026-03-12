@@ -4,7 +4,7 @@ import { useParams,useLocation, Link } from 'react-router';
 import { useEffect, useState } from 'react';
 import './units.css'
 import { getUnitsBySubject, createUnit, updateUnit ,deleteUnit} from "../../services/unitService";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash,FaEdit } from "react-icons/fa";
 //functional component for Units
 export default function Units() {
     // Get subjectId from URL parameters
@@ -48,14 +48,8 @@ export default function Units() {
     const [unitName,setUnitName]= useState('') // to add the unit name
     const [unitDescription,setUnitDescription] = useState(''); // to add the description of unit
     const [error, setError] = useState('');//error message 
-
-    // useEffect to run everytime units or subjectId changes and stores latest units in localStorage
-    // useEffect(()=>{
-    //     localStorage.setItem(`units-${subjectId}`,JSON.stringify(units))
-    // },[units,subjectId]);
-
-
-
+    const [editUnit, setEditUnit] = useState(null) //editing unit
+    
     //To run every time unitLimit or subjectId changes. and stored the unitLimit to localstorage 
     useEffect(()=>{
         if(unitLimit != null){
@@ -100,8 +94,22 @@ export default function Units() {
         }
 
         try{
-            const savedUnit = await createUnit(unitData,token);
-            setUnits((prevUnits) => [...prevUnits,savedUnit])
+            if (editUnit) {
+            const updatedUnit = await updateUnit(editUnit.id, unitData, token);
+
+            setUnits((prevUnits) =>
+                prevUnits.map((u) =>
+                    u.id === editUnit.id ? updatedUnit : u
+                )
+            );
+
+            setEditUnit(null);
+        } else {
+            const savedUnit = await createUnit(unitData, token);
+            setUnits((prevUnits) => [...prevUnits, savedUnit]);
+        }
+            // const savedUnit = await createUnit(unitData,token);
+            // setUnits((prevUnits) => [...prevUnits,savedUnit])
             setUnitName("");
             setUnitDescription("");
             setShowUnitForm(false);
@@ -109,16 +117,7 @@ export default function Units() {
         }catch(error){
             console.error("Failed to save unit:", error.message);
         }
-        // const newUnit = {
-        // id: Date.now(),
-        // name: unitName || `Unit ${units.length + 1}`,
-        // description: unitDescription,
-        // completed: false
-        // };
-        // setUnits([...units, newUnit]);
-        // setUnitName('');
-        // setUnitDescription('');
-        // setShowUnitForm(false);
+        
     }
     // for the checkbox toggle to mark completion of unit
     const toggleUnitComplete =async (unit) =>{
@@ -156,6 +155,14 @@ export default function Units() {
         }
 
     }
+
+    //handle edit unit
+    const handleEditUnit = (unit) => {
+    setEditUnit(unit);
+    setUnitName(unit.title);
+    setUnitDescription(unit.description || "");
+    setShowUnitForm(true);
+};
 
 //rendering starts here
 return (
@@ -239,17 +246,33 @@ return (
                     {units.map((unit) => (
                     
                         <li key={unit.id} className='unit-item' >
+                        
                         <label className={`unit-label ${unit.completed ? "completed" : ""}`}>
+                        
+                       
+                         
                             <input
                             type="checkbox"
                             checked={unit.completed}
                             onChange={() => toggleUnitComplete(unit)}
                             />
                             {unit.title}
-                        <FaTrash className="delete-icon" onClick={() => handleDeleteUnit(unit.id)} />
+                        {/* <FaTrash className="delete-icon" onClick={() => handleDeleteUnit(unit.id)} />
+                        <div className="edit-icon-div">
+                        <FaEdit className="edit-icon" onClick={()=> handleEditUnit(unit)}/>
+                       </div> */}
                         </label>
-                        {/* <CustomButton text="Delete" onClick={() => handleDeleteUnit(unit.id)}/> */}
-                        
+                            <div className="unit-actions">
+                            <FaTrash
+                            className="delete-icon"
+                            onClick={() => handleDeleteUnit(unit.id)}
+                            />
+
+                            <FaEdit
+                            className="edit-icon"
+                            onClick={() => handleEditUnit(unit)}
+                            />
+                        </div>
                         </li>
                         
                     ))}
