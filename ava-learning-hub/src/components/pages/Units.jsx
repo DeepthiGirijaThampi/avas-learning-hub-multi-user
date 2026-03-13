@@ -7,6 +7,8 @@ import { getUnitsBySubject, createUnit, updateUnit ,deleteUnit} from "../../serv
 import { FaTrash,FaEdit } from "react-icons/fa";
 //functional component for Units
 export default function Units() {
+
+    
     // Get subjectId from URL parameters
     const { subjectId } = useParams();
     //receive the subject info here from SubjectCard 
@@ -18,11 +20,6 @@ export default function Units() {
         const storedLimit = localStorage.getItem(`unitLimit-${subjectId}`)
         return storedLimit ? parseInt(storedLimit,10) :null;
     }
-    //load units that are saved from local storage 
-    // const loadUnits = ()=>{
-    //     const saved = localStorage.getItem(`units-${subjectId}`);
-    //     return saved? JSON.parse(saved):[]
-    // }
 
     //load units from backend 
     useEffect(() => {
@@ -49,7 +46,9 @@ export default function Units() {
     const [unitDescription,setUnitDescription] = useState(''); // to add the description of unit
     const [error, setError] = useState('');//error message 
     const [editUnit, setEditUnit] = useState(null) //editing unit
-    
+    //confirn delete
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null); 
+
     //To run every time unitLimit or subjectId changes. and stored the unitLimit to localstorage 
     useEffect(()=>{
         if(unitLimit != null){
@@ -90,7 +89,7 @@ export default function Units() {
             subject : {id : Number(subjectId)},
             title : unitName || `Unit ${units.length + 1}`,
             description: unitDescription,
-            sortOrder: units.length + 1
+            sortOrder: editUnit ? editUnit.sortOrder : units.length + 1
         }
 
         try{
@@ -121,10 +120,6 @@ export default function Units() {
     }
     // for the checkbox toggle to mark completion of unit
     const toggleUnitComplete =async (unit) =>{
-        // const updated = units.map((unit) =>
-        // unit.id === id ? { ...unit, completed: !unit.completed } : unit
-        // );
-        // setUnits(updated);
 
         const token = localStorage.getItem("token");
         const updatedUnitData = {
@@ -149,6 +144,7 @@ export default function Units() {
 
             await deleteUnit(unitId,token);
             setUnits((prevUnits) =>prevUnits.filter((unit) => unit.id !== unitId));
+            setConfirmDeleteId(null); //
 
         }catch(error){
             console.error("Failed to delete unit:", error.message);
@@ -230,7 +226,7 @@ return (
                             style={{ padding: '0.5rem', width: '250px' }}
                         />
                     </div>
-                    <CustomButton text="Save Unit" type="submit" />
+                    <CustomButton text={editUnit ? "Update Unit" : "Save Unit"} type="submit" /> 
                 </form>
             </div>
             )}
@@ -248,35 +244,47 @@ return (
                         <li key={unit.id} className='unit-item' >
                         
                         <label className={`unit-label ${unit.completed ? "completed" : ""}`}>
-                        
-                       
-                         
                             <input
                             type="checkbox"
                             checked={unit.completed}
                             onChange={() => toggleUnitComplete(unit)}
                             />
                             {unit.title}
-                        {/* <FaTrash className="delete-icon" onClick={() => handleDeleteUnit(unit.id)} />
-                        <div className="edit-icon-div">
-                        <FaEdit className="edit-icon" onClick={()=> handleEditUnit(unit)}/>
-                       </div> */}
                         </label>
                             <div className="unit-actions">
                             <FaTrash
                             className="delete-icon"
-                            onClick={() => handleDeleteUnit(unit.id)}
+                            onClick={() => setConfirmDeleteId(unit.id)}//handleDeleteUnit(unit.id)}
                             />
-
+                            
                             <FaEdit
                             className="edit-icon"
                             onClick={() => handleEditUnit(unit)}
                             />
+
                         </div>
+                        {confirmDeleteId === unit.id && (
+                                                            <div className="delete-confirm-box">
+                                                                <p>⚠️ Are you sure you want to delete this Unit?</p>
+                            
+                                                                <div className="delete-confirm-buttons">
+                                                                    <CustomButton
+                                                                        text="Delete"
+                                                                        onClick={() => handleDeleteUnit(unit.id)}
+                                                                    />
+                                                                    <CustomButton
+                                                                        text="Cancel"
+                                                                        onClick={() => setConfirmDeleteId(null)}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        ) 
+                                                    }
                         </li>
                         
                     ))}
                     </ul>
+                    
                 </div>
             )}
 

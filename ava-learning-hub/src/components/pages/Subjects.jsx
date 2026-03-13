@@ -124,7 +124,7 @@ export default function Subjects(){
                     placeholder="Description"
                     required
                 /> <br/><br/>
-                <CustomButton text={"Add Subject"} type="submit" />
+                <CustomButton text={editingSubject? "Update Subject" : "Add Subject"} type="submit" />
             </form>
         {/* Display all added subjects or a fallback message */}
             <div className="subjects-container">
@@ -138,8 +138,6 @@ export default function Subjects(){
                         onDelete={() => setConfirmDeleteId(subject.id)}
                         onEdit={() => handleEditSubject(subject)}
                         />
-
-                        {/* <CustomButton text="Delete" onClick={()=>setConfirmDeleteId(subject.id)}/> */}
 
                         {confirmDeleteId === subject.id && (
                                 <div className="delete-confirm-box">
