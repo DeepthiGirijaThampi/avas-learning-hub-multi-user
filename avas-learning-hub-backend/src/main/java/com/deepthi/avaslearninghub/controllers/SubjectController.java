@@ -85,11 +85,17 @@ public class SubjectController {
     // Delete a subject
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSubject(@PathVariable Long id) {
-        if (!subjectRepository.existsById(id)) {
+//        if (!subjectRepository.existsById(id)) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body("Subject not found with id: " + id);
+//        }
+//        subjectRepository.deleteById(id);
+        Subject subject = subjectRepository.findById(id).orElse(null);
+        if (subject == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Subject not found with id: " + id);
         }
-        subjectRepository.deleteById(id);
+        subjectRepository.delete(subject);
         return ResponseEntity.noContent().build();
     }
 

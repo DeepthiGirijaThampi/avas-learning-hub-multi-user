@@ -52,3 +52,21 @@ export async function deleteSubject(subjectId, token) {
 
   return true;
 }
+
+//Update Suject
+export async function editSubject(subjectId,subjectData,token) {
+
+    const response = await fetch(`${API_BASE_URL}/${subjectId}`,{
+        method : "PUT",
+        headers : {
+            "Content-Type" : "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body : JSON.stringify(subjectData),
+        
+    });
+    if (!response.ok) {
+    throw new Error("Failed to update subject");
+  }
+  return response.json();
+}

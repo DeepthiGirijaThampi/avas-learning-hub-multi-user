@@ -2,26 +2,21 @@ import CustomButton from "../common/CustomButton";
 import './learning.css';
 import { useEffect, useState } from "react";
 import SubjectCard from "../common/SubjectCard";
-import { getSubjectsByUser, createSubject, deleteSubject} from "../../services/subjectService";
+import { getSubjectsByUser, createSubject, deleteSubject, editSubject} from "../../services/subjectService";
+
 //Subjects component handles the creation and display of subjects
 export default function Subjects(){
-    //load the subjects from local storage 
-    // const loadSubjects = ()=>{
-    //     const saved = localStorage.getItem('subjects');
-    //     return saved ? JSON.parse(saved) : [];
-    // }
-
+    
     // useState for setting list of subjects 
     const [subjects,setSubjects] = useState([]); 
     // useState for subject name
     const [subjectName,setSubjectName] = useState("") 
     //usestate for subject description
     const [subjectDescription,setSubjectDescription] = useState("") 
-    // useEffect to update localStorage whenever the subjects state changes
-    // useEffect(()=>{
-    //     localStorage.setItem('subjects',JSON.stringify(subjects))
-
-    // },[subjects]);
+    //confirn delete
+    const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+    //subject edit
+    const [editingSubject, setEditingSubject] = useState(null);
 
     //useEffect to load subjects from the backend 
     useEffect(()=>{
@@ -40,6 +35,14 @@ export default function Subjects(){
         fetchSubjects();
     },[])
 
+
+    //edit handler 
+    const handleEditSubject = (subject) => {
+        setEditingSubject(subject);
+        setSubjectName(subject.name);
+        setSubjectDescription(subject.description);
+    }
+
     // Handle form submission to add a new subject
     const handleAddSubject = async (e)=>{
         //prevent reaload
@@ -54,46 +57,52 @@ export default function Subjects(){
         };
 
         try{
+            if (editingSubject) {
+
+            const updatedSubject = await editSubject(
+            editingSubject.id,
+            subjectData,
+            token
+            );
+
+            setSubjects((prevSubjects) =>
+            prevSubjects.map((s) =>
+                s.id === editingSubject.id ? updatedSubject : s
+            )
+             );
+
+            setEditingSubject(null);
+            setSubjectName("");
+            setSubjectDescription("");
+         }else{
             const savedSubject = await createSubject(subjectData,token);
             // setSubjects([...subjects,savedSubject]);
             setSubjects((prevSubjects) => [...prevSubjects, savedSubject]);
             setSubjectName("");
             setSubjectDescription("");
+         }   
         }catch(error){
             console.error("Failed to add subject:", error.message);
         }
-        // //create a new subject object 
-        // const newSubject = {
-        //     id: Date.now(),
-        //     name: subjectName,
-        //     description: subjectDescription
-        // };
-
-        // // Update the subjects state with the new subject
-        // setSubjects([...subjects,newSubject]);
-        // setSubjectName("");
-        // setSubjectDescription("");
+        
     }
 
     //detete subject 
-    // const handleDeleteSubject = async (subjectId) => {
-    // const token = localStorage.getItem("token");
+    const handleDeleteSubject = async (subjectId) => {
+    const token = localStorage.getItem("token");
 
-    // if (!window.confirm("Are you sure you want to delete this subject?")) {
-    //     return;
-    // }
+    try {
+        await deleteSubject(subjectId, token);
 
-    // try {
-    //     await deleteSubject(subjectId, token);
-
-    //     setSubjects((prevSubjects) =>
-    //         prevSubjects.filter((subject) => subject.id !== subjectId)
-    //     );
-    // } catch (error) {
-    //     console.error("Failed to delete subject:", error.message);
-    // }
-    // }
-
+        setSubjects((prevSubjects) =>
+            prevSubjects.filter((subject) => subject.id !== subjectId)
+        );
+        setConfirmDeleteId(null);
+    } catch (error) {
+        console.error("Failed to delete subject:", error.message);
+    }
+    }
+    
     //rendering 
     return(
      
@@ -115,7 +124,7 @@ export default function Subjects(){
                     placeholder="Description"
                     required
                 /> <br/><br/>
-                <CustomButton text={"Add Subject"} type="submit" />
+                <CustomButton text={editingSubject? "Update Subject" : "Add Subject"} type="submit" />
             </form>
         {/* Display all added subjects or a fallback message */}
             <div className="subjects-container">
@@ -124,13 +133,30 @@ export default function Subjects(){
             ):(
                 subjects.map((subject)=>(
 
-                    <div key={subject.id}>
-                        <SubjectCard subject={subject} />
+                    <div key={subject.id} className="subject-item">
+                        <SubjectCard subject={subject} 
+                        onDelete={() => setConfirmDeleteId(subject.id)}
+                        onEdit={() => handleEditSubject(subject)}
+                        />
 
-                        {/* <CustomButton
-                            text="Delete"
-                            onClick={() => handleDeleteSubject(subject.id)}
-                        /> */}
+                        {confirmDeleteId === subject.id && (
+                                <div className="delete-confirm-box">
+                                    <p>⚠️ Are you sure you want to delete this subject?</p>
+
+                                    <div className="delete-confirm-buttons">
+                                        <CustomButton
+                                            text="Delete"
+                                            onClick={() => handleDeleteSubject(subject.id)}
+                                        />
+                                        <CustomButton
+                                            text="Cancel"
+                                            onClick={() => setConfirmDeleteId(null)}
+                                        />
+                                    </div>
+                                </div>
+                            ) 
+                        }
+                        
                     </div>
                     
                     

@@ -30,6 +30,10 @@ public class Subject {
     @JsonBackReference
      private User user;
 
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reflection> reflections = new ArrayList<>();
+
      @Column(nullable = false,length = 80)
      private String name;
      @Lob

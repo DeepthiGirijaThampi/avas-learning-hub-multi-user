@@ -49,6 +49,7 @@ export default function Contacts(){
                 <form onSubmit={handleFormSubmit}>
                     <label>Name </label><input
                     type="text" name="name" 
+                    placeholder="Name"
                     value={contactData.name} 
                     onChange={handleChange} 
                     className="contact-name" 
@@ -57,6 +58,7 @@ export default function Contacts(){
                     <label>Email </label><input 
                     type="email" 
                     name="email" 
+                    placeholder="Email Address"
                     value={contactData.email} 
                     onChange={handleChange} 
                     className="contact-email" 
@@ -65,6 +67,7 @@ export default function Contacts(){
                     <label>Message:</label>
                     <textarea 
                     name="message" 
+                    placeholder="Message"
                     rows={4}
                     value={contactData.message} 
                     onChange={handleChange} 

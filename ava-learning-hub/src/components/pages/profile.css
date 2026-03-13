@@ -95,3 +95,30 @@
   min-height: 300px;
   margin: 0 2rem;
 }
+
+/* avatar */
+.avatar-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.avatar-option {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease;
+  object-fit: cover;
+}
+
+.avatar-option:hover {
+  transform: scale(1.1);
+}
+
+.selected-avatar {
+  border-color: #7BA05B;
+}

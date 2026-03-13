@@ -6,7 +6,6 @@ import com.deepthi.avaslearninghub.dto.RegisterRequest;
 import com.deepthi.avaslearninghub.models.User;
 import com.deepthi.avaslearninghub.repositories.UserRepository;
 import com.deepthi.avaslearninghub.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,7 @@ public class AuthService {
     }
 
     //Register new user
+
     public void register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");

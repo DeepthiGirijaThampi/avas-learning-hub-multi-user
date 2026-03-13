@@ -65,6 +65,7 @@
 
 /* the subject card */
 .subject-card {
+  position: relative; 
   color: #7BA05B;
   padding: 1rem;
   width: 200px;
@@ -79,7 +80,82 @@
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
   background-color: var(--green-one);
 }
+
+/* delete confirmation in subjects.  #d8e2dc; */
+.delete-confirm-box {
+  margin-top: 6px;
+  padding: 12px 16px;
+  border: 2px solid #7BA05B;
+  border-radius: 15px;
+  background: #e1edd69e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.625);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.delete-confirm-box:hover {
+  transform: scale(1.02);
+}
+
+.delete-confirm-box p {
+  margin-bottom: 10px;
+  color: #3a5a40;
+  font-weight: 500;
+}
+
+.delete-confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.subject-item {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.subject-item > button,
+.subject-item .delete-confirm-box {
+  margin-top: 10px;
+}
+
+.delete-icon{
+  cursor:pointer;
+  font-size:1.2rem;
+  opacity:0.6;
+  transition:all 0.2s ease;
+}
+
+.delete-icon:hover{
+  opacity:1;
+  transform:scale(1.2);
+}
+
+/* container for icons */
+.card-icons {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+/* edit icon */
+.edit-icon {
+  cursor: pointer;
+  color: #7BA05B;
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: transform 0.2s ease , opacity 0.2s ease;
+}
   
+.edit-icon:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
 /* animation  */
 @keyframes fadeIn {
   from {
@@ -109,17 +185,15 @@
 }
 
 @media screen and (max-width: 768px) {
-  .subject-card {
-    width: 80%;
-    padding: 1rem;
-    margin: 10px auto;
-  }
   .subjects-container {
     flex-direction: column;
     align-items: center;
   }
   .subject-card {
-    max-width: 90%;
+    width: 150px;
     padding: 1rem;
+    margin: 10px auto;
   }
+  
+  
 }

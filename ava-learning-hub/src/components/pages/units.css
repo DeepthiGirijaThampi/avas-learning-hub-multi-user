@@ -65,3 +65,13 @@
   max-width: 400px;
   width: 100%;
 }
+.unit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unit-actions {
+  display: flex;
+  gap: 10px;
+}

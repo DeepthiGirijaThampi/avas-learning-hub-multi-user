@@ -4,7 +4,7 @@ import './learning.css';
 import './reflections.css';
 import { getReflectionsByUser, createReflection, deleteReflection } from "../../services/reflectionService";
 import { getSubjectsByUser } from "../../services/subjectService";
-
+import { FaTrash } from "react-icons/fa";
 //Reflection component to allow users to add, view and delete reflections
 export default function Reflections(){
     //Load saved reflections from localStorage
@@ -155,7 +155,9 @@ export default function Reflections(){
                             <p className="reflect-p">{reflection.content}</p>
                             <small>{new Date(reflection.createdAt).toLocaleDateString()}</small><br></br>
                             <br></br>
-                            <CustomButton className="btn" text="Delete" onClick={()=>handleDeleteReflection(reflection.id)}/>
+                            
+                            <FaTrash className="delete-icon" onClick={()=>handleDeleteReflection(reflection.id)}/>    
+                            {/* <CustomButton className="btn" text="Delete" onClick={()=>handleDeleteReflection(reflection.id)}/> */}
                         </div>
                     </div>
                      )))}

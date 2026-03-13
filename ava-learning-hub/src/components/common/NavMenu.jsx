@@ -43,7 +43,7 @@ export default function NavMenu(){
         )}
         <Link className="link" id="links" to="/contacts" onClick={() => setMenuOpen(false)} >Contact Us  </Link>
         {token ? (<>
-                  <span className="link"  >Hello {firstName} 👋</span>
+                  <span className="link"  >Hello {firstName} 👋 </span>
                   <button className="link" onClick={() => {handleLogout();
                                                           setMenuOpen(false);
                                                           }}>Logout</button>
