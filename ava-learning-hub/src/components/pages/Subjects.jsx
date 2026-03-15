@@ -138,7 +138,7 @@ export default function Subjects(){
                 /> <br/><br/>
                 <CustomButton text={editingSubject? "Update Subject" : "Add Subject"} type="submit" />
             </form>
-        {/* Display all added subjects or a fallback message */}
+            {/* Display all added subjects or a fallback message */}
             <div className="subjects-container">
             {subjects.length === 0 ?(
                 <p style={{ textAlign: "center", color: "gray" }} >No subjects added yet.</p>
