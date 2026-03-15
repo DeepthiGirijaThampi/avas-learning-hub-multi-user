@@ -1,7 +1,8 @@
-// Header component that appears at the top of each page
+
 //imported NavMenu component 
 import NavMenu from "./NavMenu";
 
+// Header component that appears at the top of each page
 export default function Header(){
     return(
         <header>
