@@ -1,11 +1,25 @@
+// React hooks for managing component state
 import { useState } from "react";
+
+// Hook to navigate programmatically
 import { useNavigate } from "react-router";
+
+// Reusable button component
 import CustomButton from "../common/CustomButton";
+
+// Service function to call backend registration API
 import { registerUser } from "../../services/authService";
+
+// CSS for authentication pages
 import './auth.css';
+
+// Register component
 export default function Register() {
+
+  // Navigation hook to redirect user
   const navigate = useNavigate();
 
+  // State to store form input values
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -13,12 +27,18 @@ export default function Register() {
     password: "",
     confirmPassword: ""
   });
+  // State to display errors
   const [error, setError] = useState("");
+
+  // Handler for registration form submission
   const handleRegister = async (e) => {
+    // Prevent page refresh on submit
     e.preventDefault();
+
     setError("");
+
+    // Validate password and confirm password match
     if(formData.password !== formData.confirmPassword){
-      console.log("Passwords MissMatch");
       setError("Passwords do not match.");
       setTimeout(()=>{
         setError("");
@@ -26,13 +46,15 @@ export default function Register() {
       return;
     }
     try {
+      // Remove confirmPassword before sending data to backend
       const { confirmPassword, ...userData } = formData;
+
+      // Call backend API to register the user
       await registerUser(userData);
-      // alert("Registration successful! Please login.");
+    //redirect to login page
       navigate("/login");
     } catch (error) {
-      console.error("Registration failed:", error.message);
-      // alert(error.message);
+      // Display error message returned from backend
       setError(error.message);
       setTimeout(()=>{
         setError("");
@@ -51,9 +73,11 @@ export default function Register() {
       <p className="auth-subtitle">
         Create an account to track your learning progress.
       </p>
-    {error && (
-        <p className="form-error">{error}</p>
-      )}
+      {/* Display error message if registration fails */}
+      {error && (
+          <p className="form-error">{error}</p>
+        )}
+      {/* Registration form */}  
       <form onSubmit={handleRegister}>
         <input
           type="text"
@@ -113,7 +137,7 @@ export default function Register() {
           }
           required
         />
-
+        {/* Submit button */}
         <CustomButton text="Register" type="submit" />
       </form>
       <p className="auth-note">
