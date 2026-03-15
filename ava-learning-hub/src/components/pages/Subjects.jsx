@@ -9,14 +9,21 @@ export default function Subjects(){
     
     // useState for setting list of subjects 
     const [subjects,setSubjects] = useState([]); 
+    
     // useState for subject name
     const [subjectName,setSubjectName] = useState("") 
+
     //usestate for subject description
     const [subjectDescription,setSubjectDescription] = useState("") 
+
     //confirn delete
     const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
     //subject edit
     const [editingSubject, setEditingSubject] = useState(null);
+
+    //Error state 
+    const [error, setError] = useState("");
 
     //useEffect to load subjects from the backend 
     useEffect(()=>{
@@ -28,7 +35,8 @@ export default function Subjects(){
                 setSubjects(data);
 
             }catch(error){
-                console.error("Failed to load subjects:", error.message);
+                setError("Failed to load subjects");
+                setTimeout(() => setError(""), 3000);
             }
         }
 
@@ -36,7 +44,7 @@ export default function Subjects(){
     },[])
 
 
-    //edit handler 
+    //Edit handler to edit subject data
     const handleEditSubject = (subject) => {
         setEditingSubject(subject);
         setSubjectName(subject.name);
@@ -76,13 +84,13 @@ export default function Subjects(){
             setSubjectDescription("");
          }else{
             const savedSubject = await createSubject(subjectData,token);
-            // setSubjects([...subjects,savedSubject]);
             setSubjects((prevSubjects) => [...prevSubjects, savedSubject]);
             setSubjectName("");
             setSubjectDescription("");
          }   
         }catch(error){
-            console.error("Failed to add subject:", error.message);
+            setError("Failed to add subject");
+            setTimeout(() => setError(""), 3000);
         }
         
     }
@@ -99,7 +107,8 @@ export default function Subjects(){
         );
         setConfirmDeleteId(null);
     } catch (error) {
-        console.error("Failed to delete subject:", error.message);
+        setError("Failed to delete subject");
+        setTimeout(() => setError(""), 3000);
     }
     }
     
@@ -109,6 +118,9 @@ export default function Subjects(){
     
         <main className="page-container">
             <h1 className="page-heading" style={{display:"flex",justifyContent:"center"}}> Subjects </h1>
+            {/* Error message */}
+            {error && <p style={{color:"red"}}>{error}</p>}
+
             {/* Form for adding a new subject */}
             <form onSubmit={handleAddSubject} className="subject-form">
                 <input 
@@ -138,7 +150,7 @@ export default function Subjects(){
                         onDelete={() => setConfirmDeleteId(subject.id)}
                         onEdit={() => handleEditSubject(subject)}
                         />
-
+                        {/* Delete confirmation prompt */}
                         {confirmDeleteId === subject.id && (
                                 <div className="delete-confirm-box">
                                     <p>⚠️ Are you sure you want to delete this subject?</p>
