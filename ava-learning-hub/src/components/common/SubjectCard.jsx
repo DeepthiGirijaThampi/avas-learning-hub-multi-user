@@ -1,5 +1,8 @@
+// Import Link for navigation between routes
 import { Link } from "react-router";
+// Import icons used for edit and delete actions
 import { FaTrash, FaEdit } from "react-icons/fa";
+
 // The SubjectCard Component accepts 'subject, onDelete and onEdit' props and renders its details
 export default function SubjectCard({subject, onDelete, onEdit}){
     return(
