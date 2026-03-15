@@ -1,4 +1,3 @@
-
 //imported NavMenu component 
 import NavMenu from "./NavMenu";
 
