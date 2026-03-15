@@ -1,4 +1,7 @@
+// Import routing components from React Router
 import { Routes, Route, Navigate } from "react-router";
+
+// Import page components
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
 import Profile from "./components/pages/Profile";
@@ -8,10 +11,15 @@ import Reflections from "./components/pages/Reflections";
 import Subjects from "./components/pages/Subjects";
 import Units from "./components/pages/Units";
 import Contacts from "./components/pages/Contacts";
-import './App.css'
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
+// Import route protection component
 import ProtectedRoute from "./components/common/ProtectedRoute";
+
+// Import global app styling
+import './App.css'
+
+// Main App component that defines layout and routing
 function App() {
   
   return (
@@ -23,7 +31,8 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/about" element={<About/>}/>
         <Route path="/contacts" element={<Contacts/>}/>
-       
+
+          {/* Protected routes - accessible only when user is logged in */}
         <Route path="/profile" element={<ProtectedRoute>
                                         <Profile/>
                                         </ProtectedRoute>
