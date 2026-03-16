@@ -10,47 +10,52 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+// Marks this class as a JPA entity mapped to the "subjects" table
 @Entity
 @Table(name = "subjects")
 public class Subject {
 
+    // Primary key for the subjects table
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
+     // One-to-many relationship with Unit, mapped by the "subject" field in the Unit class
      @OneToMany(mappedBy = "subject",cascade = CascadeType.ALL,orphanRemoval = true)
-//     @JsonBackReference
-//     @JsonManagedReference
      @JsonIgnore
      private List<Unit> units = new ArrayList<>();
 
-//     @Column(name = "user_id", nullable = false)
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+     // Many-to-one relationship with User, creates a foreign key column "user_id" in the subjects table
+     @ManyToOne
+     @JoinColumn(name = "user_id", nullable = false)
+     @JsonBackReference
      private User user;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Reflection> reflections = new ArrayList<>();
+     // One-to-many relationship with Reflection, mapped by the "subject" field in the Reflection class
+     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+     @JsonIgnore
+     private List<Reflection> reflections = new ArrayList<>();
 
+     // Subject name, cannot be null and has a maximum length of 80 characters
      @Column(nullable = false,length = 80)
      private String name;
+    // @Lob allows storing larger text
      @Lob
      private String description;
      @Column(length = 30)
      private String color;
      @Column(length=50)
      private String icon;
+     // Timestamp automatically generated when the subject is created, cannot be updated
      @CreationTimestamp
      @Column(name = "created_at", nullable = false, updatable = false)
      private LocalDateTime createdAt;
 
-
+    // Default constructor required by JPA
     public Subject() {
 
     }
-
+    // Constructor used when creating a new subject
     public Subject(User user, String name, String description, String color, String icon) {
         this.user = user;
         this.name = name;
@@ -59,6 +64,7 @@ public class Subject {
         this.icon = icon;
     }
 
+    // Getter and setter methods
     public Long getId() {
         return id;
     }
