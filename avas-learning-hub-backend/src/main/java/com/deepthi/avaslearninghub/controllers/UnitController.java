@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// Controller to handle CRUD operations for Units
 @RestController
+// Base URL for all unit-related endpoints
 @RequestMapping("/api/units")
 public class UnitController {
 
+    // Repositories for accessing data related to units and subjects
     @Autowired
     private UnitRepository unitRepository;
 
@@ -46,8 +49,7 @@ public class UnitController {
     //Create a new unit
     @PostMapping
     public ResponseEntity<?> createUnit(@RequestBody Unit unit){
-//        Unit saved = unitRepository.save(unit);
-//        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+
         // 1)validate subject exists
         if(unit.getSubject() == null || unit.getSubject().getId() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controller to handle CRUD operations for Users
 @RestController
+// Base URL for all user-related endpoints
 @RequestMapping("/api/users")
 public class UserController {
 
+    // Repository for accessing data related to users
     @Autowired
     private UserRepository userRepository;
 

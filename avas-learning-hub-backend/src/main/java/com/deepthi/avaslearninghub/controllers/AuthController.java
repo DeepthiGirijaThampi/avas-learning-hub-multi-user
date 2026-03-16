@@ -10,17 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// Marks this class as a REST controller that handles HTTP requests for authentication-related operations.
 @RestController
+// Base URL for all authentication endpoints
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    // Service layer used to handle authentication logic
     private final AuthService authService;
 
+    // Constructor injection for AuthService
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
-
+    // Endpoint to register a new user
+    // POST /api/auth/register
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request){
         try{
@@ -33,6 +38,8 @@ public class AuthController {
 
     }
 
+    // Endpoint to login a user
+    // POST /api/auth/login
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request){
         try{
