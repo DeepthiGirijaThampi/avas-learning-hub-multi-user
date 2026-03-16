@@ -37,6 +37,23 @@ export default function Register() {
 
     setError("");
 
+    // Validate trimmed username
+    if (formData.username.trim().length === 0) {
+      setError("Username cannot be empty.");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      return;
+    }
+
+    // Validate trimmed full name
+    if (formData.name.trim().length === 0) {
+      setError("Name cannot be empty.");
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+      return;
+    }
     // Validate password and confirm password match
     if(formData.password !== formData.confirmPassword){
       setError("Passwords do not match.");

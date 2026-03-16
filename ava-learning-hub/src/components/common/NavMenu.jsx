@@ -17,7 +17,7 @@ export default function NavMenu(){
   const userName = localStorage.getItem("userName");
 
   // Extract the first name to display a friendly greeting
-  const firstName = userName ? userName.split(" ")[0] : "";
+  const firstName = userName ? userName.trim().split(" ")[0] : "";
 
   //handler for logout
   const handleLogout = () => {
