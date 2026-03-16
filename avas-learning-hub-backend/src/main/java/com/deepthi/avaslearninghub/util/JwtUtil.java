@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
+// Utility class for handling JWT token generation and validation
 @Component
 public class JwtUtil {
 
