@@ -1,9 +1,10 @@
-
+// Base URL for authentication-related API endpoints
 const API_BASE_URL = "http://localhost:8080/api/auth";
 
-//Register
+//Function to register a new user 
 export async function registerUser(userData){
     
+    // Send POST request to backend register endpoint
     const response = await fetch(`${API_BASE_URL}/register`, {
     method: "POST",
     headers: {
@@ -21,8 +22,10 @@ export async function registerUser(userData){
   return response.text();
 }
 
-//Login
+// Function to authenticate an existing user
 export async function loginUser(loginData){
+
+    // Send login request to backend
     const response = await fetch(`${API_BASE_URL}/login`, {
     method: "POST",
     headers: {

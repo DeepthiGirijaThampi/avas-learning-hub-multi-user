@@ -12,6 +12,8 @@ export default function Contacts(){
         email: "",
         message: ""
     });
+    //State to manage validation error messages
+    const [error, setError] = useState("")
     
     //Handler to update contactData state as the user types in the form
     const handleChange = (e)=>{
@@ -25,6 +27,24 @@ export default function Contacts(){
     const handleFormSubmit = (e)=>{
         // Prevent page reload
         e.preventDefault();
+
+        // remove spaces before checking
+        if (contactData.name.trim().length === 0) {
+            setError("Please enter your name.");
+            return;
+        }
+
+        if (contactData.email.trim().length === 0) {
+            setError("Please enter your email.");
+            return;
+        }
+
+        if (contactData.message.trim().length === 0) {
+            setError("Please enter a message.");
+            return;
+        }
+
+        setError("");
         setContactData({
         name : "",
         email : "",
@@ -46,6 +66,7 @@ export default function Contacts(){
             <div>
         
                 <h1 className="page-heading">Contact Us</h1>
+                {error && <p className="form-error">{error}</p>}
                 <form onSubmit={handleFormSubmit}>
                     <label>Name </label><input
                     type="text" name="name" 

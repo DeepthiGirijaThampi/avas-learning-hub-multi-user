@@ -16,20 +16,25 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+// Spring configuration class for setting up security settings for the application
 @Configuration
 public class SecurityConfig {
 
+    // Filter for validating JWT tokens in incoming requests
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    // Constructor injection for JwtAuthenticationFilter
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    // Bean for password encoding using BCrypt algorithm
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    // Bean for configuring the security filter chain, defining how requests are secured
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -49,6 +54,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // Bean for configuring CORS settings to allow cross-origin requests from the frontend application
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

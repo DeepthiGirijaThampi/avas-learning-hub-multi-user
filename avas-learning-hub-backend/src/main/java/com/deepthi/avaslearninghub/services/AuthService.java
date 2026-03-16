@@ -9,13 +9,16 @@ import com.deepthi.avaslearninghub.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+// Service class for handling authentication-related operations such as user registration and login
 @Service
 public class AuthService {
 
+    // Dependencies for user repository, password encoding, and JWT token generation
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    // Constructor injection for dependencies
     public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
 
         this.userRepository = userRepository;
@@ -24,7 +27,6 @@ public class AuthService {
     }
 
     //Register new user
-
     public void register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
@@ -41,7 +43,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    //Login user
+    //Login the user
     public AuthResponse login(LoginRequest request){
         User user = userRepository.findByEmail(request.getEmail());
 

@@ -21,21 +21,7 @@ export default function Units() {
         return storedLimit ? parseInt(storedLimit,10) :null;
     }
 
-    //load units from backend 
-    useEffect(() => {
-    const fetchUnits = async () => {
-        const token = localStorage.getItem("token");
-
-        try {
-            const data = await getUnitsBySubject(subjectId, token);
-            setUnits(data);
-        } catch (error) {
-            console.error("Failed to load units:", error.message);
-        }
-    };
-
-    fetchUnits();
-}, [subjectId]);
+   
     //state variables 
     const [units, setUnits] = useState([]); // setting the units
     const [unitLimit, setUnitLimit] = useState(loadLimit); // setting the limit
@@ -48,6 +34,22 @@ export default function Units() {
     const [editUnit, setEditUnit] = useState(null) //editing unit
     //confirn delete
     const [confirmDeleteId, setConfirmDeleteId] = useState(null); 
+
+    //load units from backend 
+    useEffect(() => {
+    const fetchUnits = async () => {
+        const token = localStorage.getItem("token");
+
+        try {
+            const data = await getUnitsBySubject(subjectId, token);
+            setUnits(data);
+        } catch (error) {
+           setError("Failed to load units");
+        }
+    };
+
+    fetchUnits();
+}, [subjectId]);
 
     //To run every time unitLimit or subjectId changes. and stored the unitLimit to localstorage 
     useEffect(()=>{

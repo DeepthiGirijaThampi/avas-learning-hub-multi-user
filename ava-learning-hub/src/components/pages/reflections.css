@@ -84,6 +84,7 @@
 .reflection-display {
   animation: fadeIn 0.4s ease-in;
 }
+
 /* Media Queries */
 
 @media screen and (max-width: 1366px) {

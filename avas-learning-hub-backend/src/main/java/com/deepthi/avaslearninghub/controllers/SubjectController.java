@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controller to handle CRUD operations for Subjects
 @RestController
+// Base URL for all subject-related endpoints
 @RequestMapping("/api/subjects")
 public class SubjectController {
-
+    // Repositories for accessing data related to subjects and users
     @Autowired
     private SubjectRepository subjectRepository;
     @Autowired
@@ -45,9 +47,6 @@ public class SubjectController {
     // Create a new subject
     @PostMapping
     public ResponseEntity<?> createSubject(@RequestBody Subject subject) {
-
-//        Subject saved = subjectRepository.save(subject);
-//        return new ResponseEntity<>(saved, HttpStatus.CREATED);
 
         // check if user exists
         if(subject.getUser()==null || subject.getUser().getId() == null){
@@ -85,11 +84,7 @@ public class SubjectController {
     // Delete a subject
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteSubject(@PathVariable Long id) {
-//        if (!subjectRepository.existsById(id)) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("Subject not found with id: " + id);
-//        }
-//        subjectRepository.deleteById(id);
+
         Subject subject = subjectRepository.findById(id).orElse(null);
         if (subject == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

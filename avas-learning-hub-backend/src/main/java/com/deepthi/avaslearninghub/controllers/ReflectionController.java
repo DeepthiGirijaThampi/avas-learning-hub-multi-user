@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// Controller to handle CRUD operations for Reflections
 @RestController
+// Base URL for all reflection-related endpoints
 @RequestMapping("/api/reflections")
 public class ReflectionController {
 
+    // Repositories for accessing data related to reflections, users, and subjects
     @Autowired
     private ReflectionRepository reflectionRepository;
     @Autowired
