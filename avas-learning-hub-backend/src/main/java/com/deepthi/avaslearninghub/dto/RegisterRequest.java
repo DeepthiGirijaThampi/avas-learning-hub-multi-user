@@ -1,16 +1,23 @@
 package com.deepthi.avaslearninghub.dto;
 
+// Data Transfer Object used to receive registration data
+// from the frontend when a new user is signing up
 public class RegisterRequest {
 
+    // Username chosen by the user for registration
     private String username;
+    // Full name of the user
     private String name;
+    // User email address used for registration
     private String email;
+    // Password chosen by the user for registration
     private String password;
-
+    // Default constructor
     public RegisterRequest(){
 
     }
 
+    // Getter and setter methods
     public String getUsername() {
         return username;
     }
