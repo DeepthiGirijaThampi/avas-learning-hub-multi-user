@@ -1,5 +1,5 @@
 // Importing navigation hooks from React Router
-import { useNavigate ,Link } from "react-router";
+import { useNavigate ,Link , Navigate} from "react-router";
 // Importing the CSS for styling
 import './home.css';
 
@@ -10,6 +10,14 @@ export default function Home(){
     // Hook from React Router to programmatically navigate between routes
     const navigate = useNavigate();
     
+    // Get token from localStorage to check if user is logged in
+    const token = localStorage.getItem("token");
+
+    // If token exists, redirect user away from home page
+    if(token){
+        return <Navigate to="/subjects" />;
+    }
+
     //rendering
     return(
         <main className="home-page">

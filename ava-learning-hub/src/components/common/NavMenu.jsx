@@ -48,7 +48,8 @@ export default function NavMenu(){
       {/* Navigation links */}
       <div className={`menu-links ${menuOpen ? 'show' : ''}`}>
         {/* Public navigation links */}
-        <Link className="link" id="links" to="/" onClick={() => setMenuOpen(false)} >Home  </Link>
+        {/* <Link className="link" id="links" to="/" onClick={() => setMenuOpen(false)} >Home  </Link> */}
+        {!token && (<Link to="/" className="link" onClick={() => setMenuOpen(false)}>Home</Link>)}
         <Link className="link" id="links" to="/about" onClick={() => setMenuOpen(false)} >About  </Link>
         
         {/* Protected links shown only when user is logged in */}
@@ -63,7 +64,7 @@ export default function NavMenu(){
         <Link className="link" id="links" to="/contacts" onClick={() => setMenuOpen(false)} >Contact Us  </Link>
         {/* Conditional rendering based on authentication */}
         {token ? (<>
-                  <span className="link"  >Hello {firstName} 👋 </span>
+                  <span> Hello {firstName} 👋 </span>
                   <button className="link" onClick={() => {handleLogout();
                                                           setMenuOpen(false);
                                                           }}>Logout</button>
