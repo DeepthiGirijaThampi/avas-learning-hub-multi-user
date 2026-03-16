@@ -43,7 +43,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    //Login user
+    //Login the user
     public AuthResponse login(LoginRequest request){
         User user = userRepository.findByEmail(request.getEmail());
 
