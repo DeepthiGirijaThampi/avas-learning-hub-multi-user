@@ -48,7 +48,7 @@
 
 ---
 
-## 💡 About the Project
+## About the Project
 
 Ava’s Learning Hub is a full-stack educational web application designed to help students organize, track, and reflect on their learning journey.
 
@@ -58,7 +58,7 @@ Built with a React frontend and a Java Spring Boot backend, the application uses
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Functionality
 - Create, update, and delete subjects  
@@ -73,7 +73,7 @@ Built with a React frontend and a Java Spring Boot backend, the application uses
 
 ---
 
-## 📸 Key Visuals
+## Key Visuals
 
 ### 🏠 Home Page
 <img width="446" height="640" alt="Home" src="https://github.com/user-attachments/assets/694c03dd-550a-4cdb-9e33-927d8d3f8872" />
@@ -92,13 +92,13 @@ Built with a React frontend and a Java Spring Boot backend, the application uses
 
 ---
 
-## 🧩 Wireframes
+## Wireframes
 
 👉 [View Wireframes in Figma](https://www.figma.com/design/KlayXTegam4vxnN2PFFaqp/Ava-s-Learning-Hub--Wireframes--Copy-?node-id=0-1&p=f&t=FwMDb6xfDLazb1mI-0)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Front End
 - React  
@@ -116,7 +116,7 @@ Built with a React frontend and a Java Spring Boot backend, the application uses
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Node.js  
@@ -158,13 +158,13 @@ http://localhost:5173
 
 ---
 
-## 🗄️ Database Design (ERD)
+## Database Design (ERD)
 
 👉 [View ERD](https://dbdiagram.io/d/ERD-Unit2-Project-DeepthiGT-698f6f51bd82f5fce2ad5489)
 
 ---
 
-## ⚙️ API Endpoints
+## API Endpoints
 
 > 🔐 Protected endpoints require a valid JWT in the Authorization header.
 
@@ -232,7 +232,7 @@ http://localhost:5173
 
 ---
 
-## 🔮 Future Features
+## Future Features
 
 - Parent dashboard  
 - Role-based access  
@@ -242,7 +242,7 @@ http://localhost:5173
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 Deepthi Girija Thampi  
 Full Stack Developer  
